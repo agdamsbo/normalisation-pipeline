@@ -1,0 +1,5 @@
+# Preface {.unnumbered}
+
+This is a Quarto book.
+
+The book is intended as documentation on normalizing brain and lesion masks from chronic stroke T1 weighted imaging.

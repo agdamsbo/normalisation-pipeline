@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Normalisation pipeline",
+    "section": "",
+    "text": "Preface\nThis is a Quarto book.\nThe book is intended as documentation on normalizing brain and lesion masks from chronic stroke T1 weighted imaging."
+  },
+  {
+    "objectID": "README.html",
+    "href": "README.html",
+    "title": "1  Data processing for brain and lesion normalisation",
+    "section": "",
+    "text": "2 Requirements\nYou need to have fsl as well as R installed.\nScript files are located in the codes folder.\nMove the contents of the codes folder to where you want your files to be located.\nOpen a terminal window in the root directory.\nScripts for normalization: link\nNeMo tool upload: link"
+  },
+  {
+    "objectID": "README.html#files-required-for-each-subject",
+    "href": "README.html#files-required-for-each-subject",
+    "title": "1  Data processing for brain and lesion normalisation",
+    "section": "2.1 Files required for each subject",
+    "text": "2.1 Files required for each subject\nThe scripts needs a T1 weighted scan and lesion mask in Nifti format. Naming should be as follows.\n\nsubjID_T1w.nii.gz\nsubjID_LesionMask.nii.gz"
+  },
+  {
+    "objectID": "README.html#file-structure",
+    "href": "README.html#file-structure",
+    "title": "1  Data processing for brain and lesion normalisation",
+    "section": "4.1 File structure",
+    "text": "4.1 File structure\nThis is the expected data structure for the pipeline.\n${ROOT}\n|-- 00nemo_prep_pipeline.sh\n|-- file-prep.R\n|-- fsl_1mm-norm_bbl.sh\n|-- fsl_anat_alt_bbl.sh\n|-- optiBET_bbl.sh\n|-- prep_T1w_bbl.sh\n|-- T1_2_MNI152_1mm.cnf\n|-- sub01\n    |-- sub01_T1w.nii.gz\n    |-- sub01_LesionMask.nii.gz\n|-- sub02\n    |-- sub02_T1w.nii.gz\n    |-- sub02_LesionMask.nii.gz\n|-- subNN\n    |-- subNN_T1w.nii.gz\n    |-- subNN_LesionMask.nii.gz"
+  },
+  {
+    "objectID": "README.html#notes-on-changes-from-the-originals",
+    "href": "README.html#notes-on-changes-from-the-originals",
+    "title": "1  Data processing for brain and lesion normalisation",
+    "section": "5.1 Notes on changes from the originals",
+    "text": "5.1 Notes on changes from the originals\nfsl_anat_alt_bbl.sh: It took me some time to figure out, I have to say. During the script, the working directory is changed. This makes referencing the optiBET_bbl.sh script a little tricky. I ended up going back a step with “cd -” and forward again after running optiBET_bbl.sh."
+  }
+]

@@ -1,0 +1,29 @@
+project:
+  type: book
+
+book:
+  title: "Normalisation pipeline"
+  author: "Andreas G. Damsbo"
+  date: last-updated
+  search: true
+  repo-url: https://github.com/agdamsbo/normalisation-pipeline/
+  repo-actions: [edit]
+  site-url: https://agdamsbo.github.io/normalisation-pipeline/
+  chapters:
+    - index.qmd
+    - README.md
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+theme:
+  light: cosmo
+  dark: superhero
+  
+editor: source
+
