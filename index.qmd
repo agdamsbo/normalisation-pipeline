@@ -8,7 +8,7 @@ The reason for creating this tool is to use 1mm MNI normalised lesion masks for 
 
 Most of the hard working scripts in this pipeline are based on the work by [Dr. Dianne Patterson, PhD](https://neuroimaging-core-docs.readthedocs.io/en/latest/index.html). I have tried my best at modifying the original scripts as little as possible for clarity, and instead created a few new scripts to work as wrappers.
 
-And then, the. frustration. I found that documentation for this work was highly lacking, and I've had to rely on other people doing the documentation. As an example, [this is the best overview of `fslmaths -help`](https://mandymejia.com/fsl-maths-commands/). And please notice, that to get help for `fslmaths`or `flirt`, type the command followed by ` -help`. If you want the same from `fnirt`, then type `-h`or `--help` as is the case for most other command-line programs.
+And then, the. frustration. I found that documentation for this work was highly lacking, and I've had to rely on other people doing the documentation. As an example, [this is the best overview of `fslmaths -help`](https://mandymejia.com/fsl-maths-commands/). And please notice, that to get help for `fslmaths`or `flirt`, type the command followed by ` -help`. If you want the same from `fnirt`, then type `-h` or `--help` as is the case for most other command-line programs.
 
 Then one could argue, that this is just another second hand documentation. Yes, that is true. But it is also and attempt to lower the step into working with MRI data.
 

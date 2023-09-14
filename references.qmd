@@ -1,4 +1,4 @@
-# References
+# References {.unnumbered}
 
 ```{r}
 #| echo: false

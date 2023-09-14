@@ -6,7 +6,7 @@ book:
   title: "Normalisation pipeline"
   author: "Andreas G. Damsbo"
   favicon: "/images/favicon.png"
-  date: last-updated
+  date: last-modified
   search: true
   repo-url: https://github.com/agdamsbo/normalisation-pipeline/
   repo-actions: [edit]
@@ -18,7 +18,8 @@ book:
     - 02-getting-started.qmd
     - 03-qc.qmd
     - 04-finding-nemo.qmd
-    - 09-references.qmd
+  appendices: 
+    - references.qmd
 
 bibliography: references.bib
 
@@ -39,3 +40,35 @@ theme:
   
 editor: source
 
+author:
+  - name: Andreas Gammelgaard Damsbo
+    orcid: 0000-0002-7559-1154
+    email: andrlr@rm.dk
+    url: https://pure.au.dk/portal/en/persons/andreas-gammelgaard-damsbo(e3c4afce-3eba-4456-8b8b-2fd90775c87a).html
+    affiliations:
+      - ref: bbl
+      - ref: dsc
+affiliations:
+  - id: dsc
+    name: Danish Stroke Centre, AUH
+    department: Neurology
+    city: Aarhus
+    country: Denmark
+    url: https://www.en.auh.dk/departments/danish-stroke-centre/
+  - id: dcm
+    name: Department of Clinical Medicine, AU
+    city: Aarhus
+    country: Denmark
+    url: https://clin.au.dk/
+  - id: sdc
+    name: Steno Diabetes Centre, AUH
+    city: Aarhus
+    country: Denmark
+    url: https://www.stenoaarhus.dk/
+  - id: bbl
+    name: Brain Behaviour Laboratory, UBC
+    department: Department of Physiotherapy
+    city: Vancouver
+    region: British Colombia
+    country: Canada
+    url: https://brain.rehab.med.ubc.ca/
