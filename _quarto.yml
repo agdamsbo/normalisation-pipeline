@@ -24,6 +24,7 @@ bibliography: references.bib
 
 execute:
   echo: false
+  freeze: auto
 
 format:
   html:
