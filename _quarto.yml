@@ -5,20 +5,30 @@ project:
 book:
   title: "Normalisation pipeline"
   author: "Andreas G. Damsbo"
+  favicon: "/images/favicon.png"
   date: last-updated
   search: true
   repo-url: https://github.com/agdamsbo/normalisation-pipeline/
   repo-actions: [edit]
   site-url: https://agdamsbo.github.io/normalisation-pipeline/
+  page-navigation: true
   chapters:
     - index.qmd
-    - README.md
+    - 01-content.qmd
+    - 02-getting-started.qmd
+    - 03-qc.qmd
+    - 04-finding-nemo.qmd
+    - 09-references.qmd
 
 bibliography: references.bib
+
+execute:
+  echo: false
 
 format:
   html:
     theme: cosmo
+    code-copy: true
   pdf:
     documentclass: scrreprt
 
