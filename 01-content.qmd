@@ -1,0 +1,20 @@
+# Contents
+
+```{r}
+#| echo: false
+source("glossary_setup.R")
+```
+
+The `r glossary("pipeline")` provides a set of handy tools listed below, which I will also go through:
+
+-   *R*-script to organise files into subject-folders
+
+-   `r glossary("Bash")` pipeline to process all subject folders to extract brain mask, and normalise lesion mask to 1 mm MNI space (this is the primary content)
+
+-   `r glossary("Bash")`-script to normalise lesion mask after manual correction of brain mask (no, even using `r glossary("optiBET")` is not perfect)
+
+-   *R*-script to package lesion masks to supply to the NeMo tool.
+
+## Glossary
+
+`r glossary_table()`

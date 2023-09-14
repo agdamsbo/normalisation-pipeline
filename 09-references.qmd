@@ -1,0 +1,9 @@
+# References
+
+```{r}
+#| echo: false
+source("glossary_setup.R")
+```
+
+::: {#refs}
+:::

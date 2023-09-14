@@ -1,0 +1,116 @@
+# Getting started
+
+```{r}
+source("glossary_setup.R")
+```
+
+You need to have the following programs installed:
+
+-   [fsl](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL) as well as 
+
+-   [*R*](https://www.r-project.org/) and [RStudio (or similar)](https://posit.co/downloads/) installed. 
+
+-   I also highly recommend the package [ITK-SNAP](http://itksnap.org/pmwiki/pmwiki.php?n=Main.HomePage), which can be used for some (semi-)manual mask modifications.
+
+-   Working on a Linux (Debian/Ubuntu/Mint...) machine, you may want to use the powerful [ANTs package](https://github.com/ANTsX/ANTs) (or the underlying [`ANTsR` package](https://github.com/ANTsX/ANTsR)), which can be used for segmentation and registration as well. A scripting example is provided by [Dr. Dianne Patterson, PhD](https://neuroimaging-core-docs.readthedocs.io/en/latest/pages/ants_anat_normalization-lesion.html).
+
+
+Script files are located in the `codes` folder like below.
+
+```         
+${ROOT}
+|-- codes
+   |-- 00nemo_prep_pipeline.sh
+   |-- file-structure.R
+   |-- fsl_1mm-norm_bbl.sh
+   |-- fsl_anat_alt_bbl.sh
+   |-- modified_brain_mask_bbl.sh
+   |-- nemo-packing.R
+   |-- optiBET.sh
+   |-- prep_T1w_bbl.sh
+   |-- T1_2_MNI152_1mm.cnf
+|-- ...
+```
+
+1.  Move the contents of the `codes` folder to where you want your files to be located. This folder is now referred to as the root directory. Now, open a terminal window in the root directory.
+
+2.  Start by copying a new configuration file for fsl, to do registration to 1mm MNI space (basically the same as the 2mm config, but references the 1mm MNI):
+
+    ```{bash}
+    #| eval: false
+    #| echo: true
+    imcp T1_2_MNI152_1mm.cnf $FSLDIR/etc/flirtsch/T1_2_MNI152_1mm.cnf
+    ```
+
+    See [this mail thread](https://www.jiscmail.ac.uk/cgi-bin/webadmin?A2=fsl;2fa01b76.1208) for a note on the 1mm normalization. It is needed for the NeMo-tool however.
+
+3.  Open the `file-prep.R` script and edit the first three variables. Save it and then, run the following in the terminal window:
+
+    ```{bash}
+    #| eval: false
+    #| echo: true         
+    Rscript file-prep.R
+    ```
+
+    Instructions are in this file. Note that, this script assumes your data files are ordered as below:
+
+    ```         
+    ${ORIGINAL DATAFOLDER}
+    |-- sub01_T1w.nii.gz
+    |-- sub01_LesionMask.nii.gz
+    |-- sub02_T1w.nii.gz
+    |-- sub02_LesionMask.nii.gz
+    |-- subNN_T1w.nii.gz
+    |-- subNN_LesionMask.nii.gz
+    ```
+
+    Now the files and folders are structured as expected, as below:
+
+    ```         
+    ${ROOT}
+    |-- 00nemo_prep_pipeline.sh
+    |-- file-structure.R
+    |-- fsl_1mm-norm_bbl.sh
+    |-- fsl_anat_alt_bbl.sh
+    |-- modified_brain_mask_bbl.sh
+    |-- nemo-packing.R
+    |-- optiBET.sh
+    |-- prep_T1w_bbl.sh
+    |-- T1_2_MNI152_1mm.cnf
+    |-- sub01
+        |-- sub01_T1w.nii.gz
+        |-- sub01_LesionMask.nii.gz
+    |-- sub02
+        |-- sub02_T1w.nii.gz
+        |-- sub02_LesionMask.nii.gz
+    |-- subNN
+        |-- subNN_T1w.nii.gz
+        |-- subNN_LesionMask.nii.gz
+    ```
+
+4.  In a terminal window, make sure your in the source directory, where your codes and scans are located.
+
+    ```{bash}
+    #| eval: false
+    #| echo: true           
+    sh 00nemo_prep_pipeline.sh
+    ```
+
+    Then, when ready to start processing your data, fire up the main script, and watch while your computer hums away. Or do something else in the meantime. You'll get time stamps along the way to have an idea of the progress and the time needed. The output files are written along the way, so you can manually check the output while the script works. Note that your original T1 and lesion mask will have "\_orig" appended as suffix and be substituted with corrected files. If the script gets interrupted, you can just restart it, and it will skip subjects already processed. Make sure you delete the output files, if you want the script to rerun on a specific subject.
+
+5.  Now it is time for quality control. Please refer to the [separate chapter](#qc) on this.
+
+6.  Now you should be ready to package for the NeMo tool. The web interface has an upload limit of 10 lesion masks. Open and edit the source-folder in the `nemo-packing.R` script. It will collect all 1mm MNI lesion masks and package in zip-files of max 10 lesion masks each and put them in the provided folder. Save and then run the following:
+
+    ```{bash}
+    #| eval: false
+    #| echo: true           
+    Rscript nemo-packing.R
+    ```
+
+## Glossary
+
+```{r}
+glossary_table()
+```
+

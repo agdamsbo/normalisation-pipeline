@@ -1,0 +1,29 @@
+# Using the NeMo tool {#nemo}
+
+```{r}
+source("glossary_setup.R")
+```
+
+This section will exists as documentation on how we have worked with the NeMo tool. Coding is very much inspired and copied from other sources. I will try to write sources and inspiration.
+
+## Package and upload
+
+First step is to get the normalised lesion masks processed by the `r glossary("NeMo")` tool to get a "dis-connectome".
+
+The online instance of the tool offers to freely process lesion masks in batches of 10. You can use the bundled *R*-script to package lesion masks into compressed zip-batches of maximum 10.
+
+1.  Open the `nemo_packing.R` file and edit the variables in the first section, then run the script, from either RStudio or the command terminal window:
+
+    ```{bash}
+    #| echo: true
+    #| eval: false
+    Rscript nemo-packing.R
+    ```
+
+1.  THen head over to the [NeMo processing website](https://kuceyeski-wcm-web.s3.us-east-1.amazonaws.com/upload.html) and upload the zip-files, one at a time with your desired settings and atlas for parcellation.
+
+## Glossary
+
+```{r}
+glossary_table()
+```

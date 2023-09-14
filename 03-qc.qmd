@@ -1,0 +1,102 @@
+# Quality control {#qc}
+
+```{r}
+source("glossary_setup.R")
+```
+
+As quality control goes, this is not exhaustive, but here is my suggestion as to a minimum approach.
+
+On paper, everything is now done. But of course, you should go through all subjects manually to check that, the masking went well, as that is the real key step in this process.
+
+Sticking to the broader lines, the problems may be of either auto-cropping or masking. As masking goes, the script may have included too much or too little in the brain mask. I'll go through suggested solutions to all these below.
+
+## Inspection
+
+I have come to like the ITK-SNAP tool, but fsleyes is good as well.
+
+I would open the new "SubNN_T1w.nii.gz" in fsleyes or ITK-SNAP and overlay the "SubNN_T1w_brain_mask.nii.gz" and go through to check the masking and cropping. Check the cropping and the masking. Happy? Carry on to the next subject. Not so much? See below.
+
+## Cropping
+
+Do not skip this step. Take a good look at the cropping, as the algorithm might have cropped out part of cerebellum (typically the issue, if any). 
+
+1.  Delete all the output-files (remembering that the original files were preserved with "\_orig" suffix) and renaming the original files removing the suffix. 
+
+1.  Open the original T1 image and lesion mask in `r glossary("fsleyes")`, and manually crop the two with the same mask when cropping, you can save the crop mask from the T1 and load it for the lesion mask). If the two files are not cropped to the same dimensions, they won't align, and you'll be in trouble. 
+
+1.  After cropping, run the `00nemo_prep_pipeline.sh` script again. It will only run in folders with the *.anat folder not present.
+
+## Masking
+
+In ITK-SNAP, you can correct the brain mask manually. Overall, open the "SubNN_T1w.nii.gz" with {{< kbd mac=Command-G win=Control-G linux=Control-G >}} and the "SubNN_T1w_brain_mask.nii.gz" with {{< kbd mac=Command-O win=Control-O linux=Control-O >}}. You can manually edit the brain mask by using the interpolate tool to apply changes to all layers in all three planes. Please have a look at [this demonstration of the tool](https://youtu.be/watch?v=ZVmINdWk5R4). Make sure that changes are made in a different label to the main label of the brain mask segmentation.
+
+Here, I'll just go through an order of work for the two different cases: 
+
+### Too little {#too-little}
+
+This is simple. You just add the missing:
+
+1.  Using the drawing tool, include the missing parts of the brain/infarct in the new label. You can get by by just drawing on each 5-7 layers in the axial plane. Then do interpolate along the axial axis. Check that you are satisfied. If not, then {{< kbd mac=Command-Z win=Control-Z linux=Control-Z >}}. Add a few other layers of manual drawing. Interpolate again. When done, save as a new file.
+
+### Too much {#too-much}
+
+This is also relatively simple, but has an extra step:
+
+1.  Invert the lesion mask:
+
+    ```{bash}
+    #| echo: true
+    #| eval: false     
+    fslmaths SubNN/SubNN_T1w_brain_mask.nii.gz -binv SubNN/SubNN_T1w_brain_mask_INV.nii.gz
+    ```
+
+1.  Follow the same steps [as above](#too-much) to add non-brain area to exclude from the brain mask. Save the new brain mask and then invert the modified inverted brain mask again:
+
+    ```{bash}
+    #| echo: true
+    #| eval: false     
+    fslmaths SubNN/SubNN_T1w_brain_mask_INV.nii.gz -binv SubNN/SubNN_T1w_brain_mask_MODIFIED.nii.gz
+    ```
+
+1.  Check that you are satisfied with the result.
+
+### Register to MNI space again
+
+1.  Having a new, modified brain mask, go to the terminal window again and write the following:
+
+    ```{bash}
+    #| echo: true
+    #| eval: false     
+    sh modified_brain_mask_bbl.sh SubNN/SubNN_T1w.nii.gz SubNN/SubNN_T1w_brain_mask_MODIFIED.nii.gz
+    ```
+    
+    Please notice that the naming of the modified brain mask doesn't matter.
+
+## Final quality control steps {#final-qc}
+
+After registering the lesion mask to standard space, please make sure, that you are satisfied with the result. You might have to correct to masking, especially if its a large lesion. In my experience, the common problem is that the algorithm have left out some of the infarcted area towards cortex. In ITK-SNAP you can add this area. If the lesion is all the way to the surface of the cortex, then make sure to overfill towards the surface (into the non-brain area). Afterwards, you can perform a three step approach to "punch" out the lesion only to the surface of the brain.
+
+1.  The following will create an inverted MNI brain mask in you source directory. Make sure that the fsl directory is correct.
+
+    ```{bash}
+    #| echo: true
+    #| eval: false
+    fslmaths /usr/local/fsl/data/standard/MNI152_T1_1mm_brain_mask.nii.gz -binv mni_1mm_brain_mask_inv.nii.gz
+    ```
+
+1.  The next is the short version of a three-step operation to 1) make sure the lesion mask is binary, 2) subtract the inverted MNI brain mask as an inverted hole-puncher, and finally 3) using the threshold function to isolate the lesion mask. Please correct the subfolder and file names.
+
+    ```{bash}
+    #| echo: true
+    #| eval: false
+    fslmaths subNN/subNN_T1w_MNI-1mm_lesion.nii.gz -bin -sub mni_1mm_brain_mask_inv.nii.gz -thr 0  subNN/subNN_T1w_MNI-1mm_lesion_punch.nii.gz
+    ```
+
+1.  Now please rename the old MNI lesion mask and remove the "_punch" suffix from the new lesion mask name to follow the standard naming.
+
+
+## Glossary
+
+```{r}
+glossary_table()
+```
