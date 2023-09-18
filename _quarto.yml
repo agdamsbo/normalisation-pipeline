@@ -31,6 +31,7 @@ format:
   html:
     theme: cosmo
     code-copy: true
+    code-overflow: wrap
   pdf:
     documentclass: scrreprt
 
@@ -55,16 +56,6 @@ affiliations:
     city: Aarhus
     country: Denmark
     url: https://www.en.auh.dk/departments/danish-stroke-centre/
-  - id: dcm
-    name: Department of Clinical Medicine, AU
-    city: Aarhus
-    country: Denmark
-    url: https://clin.au.dk/
-  - id: sdc
-    name: Steno Diabetes Centre, AUH
-    city: Aarhus
-    country: Denmark
-    url: https://www.stenoaarhus.dk/
   - id: bbl
     name: Brain Behaviour Laboratory, UBC
     department: Department of Physiotherapy
