@@ -10,3 +10,5 @@ optiBET: |
   A four step optimization of the fsl BET tool from [the Monti lab at UCLA](https://montilab.psych.ucla.edu/fmri-wiki/optibet/). [Read more](https://montilab.psych.ucla.edu/fmri-wiki/optibet/).
 NeMo: |
   Network Modification tool. [Source](https://github.com/kjamison/nemo)
+regex: |
+  Short of Regular Expression. Provides a very powerful character search interface. There are various resources online for learning and validating your regex search pattern. 

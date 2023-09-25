@@ -50,7 +50,7 @@ This is also relatively simple, but has an extra step:
     fslmaths SubNN/SubNN_T1w_brain_mask.nii.gz -binv SubNN/SubNN_T1w_brain_mask_INV.nii.gz
     ```
 
-1.  Follow the same steps [as above](#too-much) to add non-brain area to exclude from the brain mask. Save the new brain mask and then invert the modified inverted brain mask again:
+1.  Follow the same steps [as above](#too-little) to add non-brain area to exclude from the brain mask. Save the new brain mask and then invert the modified inverted brain mask again:
 
     ```{bash}
     #| echo: true
@@ -94,6 +94,14 @@ After registering the lesion mask to standard space, please make sure, that you 
 
 1.  Now please rename the old MNI lesion mask and remove the "_punch" suffix from the new lesion mask name to follow the standard naming.
 
+
+If you are performing several of the "punch-out" actions, I have created a small script `other/multi-punch.sh`, that will automate this process a bit. To run it, you provide a folder name to search and a common `r glossary("regex")` pattern to search for within the folder (it includes with sub-folders). The syntax would be like this:
+
+```{bash}
+#| echo: true
+#| eval: false
+sh multi-punch.sh /sourcefolder "*_lesion.nii.gz"
+```
 
 ## Glossary
 

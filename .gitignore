@@ -53,5 +53,4 @@ rsconnect/
 codes/W*
 
 .DS_Store
-
-presentation*
+_extensions/
