@@ -1,9 +1,10 @@
----
-execute: 
-  eval: false
----
-
 # ZIP to data set
+
+```{r}
+#| echo: false
+#| eval: true
+source("glossary_setup.R")
+```
 
 So, here I'll show how we went from compressed zip file, from the NeMo tool, and to having a data set for further analyses.
 
@@ -12,6 +13,8 @@ I am fairly new to Python, but have worked in R for many years. This means, that
 First, extract the compressed file and put it where you like. I'll denote this location as the `source.folder`.
 
 ```{r}
+#| echo: true
+#| eval: true
 # source.folder <- "/full/path/NeMo_output"
 source.folder <- "/Users/au301842/NeMo_output"
 ```
@@ -19,6 +22,8 @@ source.folder <- "/Users/au301842/NeMo_output"
 Then we want to extract the `chacovol` data. This is extracted by unpikling `.pkl` files using a short python script wrapped in R:
 
 ```{r}
+#| echo: true
+#| eval: true
 source("nemo/unpkl-sparse.R")
 unpkl_sparse(data.folder = source.folder,
              "chacovol_yeo17_mean.pkl")
@@ -29,6 +34,8 @@ The unpikled files are then collected and merged in a wide format.
 But first, we need to handle the provided atlas `.txt` files to get ROI names:
 
 ```{r}
+#| echo: true
+#| eval: true
 #| comment: This got unneccessarily complicated due to the fixed with format of the provided atlas file. Sure you can do better!
 atlas <- readLines("/Users/au301842/NeMo_output/Yeo2011_17Networks_NetworkNames_ColorLUT.txt")
 rois <- do.call(c,lapply(atlas[-1],function(i){
@@ -39,6 +46,8 @@ rois <- do.call(c,lapply(atlas[-1],function(i){
 ```
 
 ```{r}
+#| echo: true
+#| eval: true
 source("nemo/nemo-collect.R")
 df <- nemo_collect(
   data.folder = source.folder,
@@ -55,6 +64,8 @@ I very much prefer writing function to do the data handling, but I just have to 
 We also want those nice glass brains. This is entirely based on the scripts from the NeMo tool, which uses the `nibabel` Python package.
 
 ```{r}
+#| echo: true
+#| eval: true
 source("nemo/glass-brain.R")
 glass_brain(
   data.folder = source.folder,
@@ -69,6 +80,8 @@ glass_brain(
 The same scirpt can also be used for lesion plotting:
 
 ```{r}
+#| echo: true
+#| eval: true
 glass_brain(
   data.folder = "/Users/folder/with/lesions/",
   file.pattern = "lesion.nii.gz",
@@ -78,3 +91,12 @@ glass_brain(
 ```
 
 ![Combined lesion plot](images/glass_lesion.png){fig-align="center"}
+
+## Glossary
+
+```{r}
+#| echo: false
+#| eval: true
+glossary_table()
+```
+

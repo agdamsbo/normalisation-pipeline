@@ -29,7 +29,7 @@ book:
 bibliography: references.bib
 
 execute:
-  echo: false
+  echo: true
   freeze: auto
 
 format:
