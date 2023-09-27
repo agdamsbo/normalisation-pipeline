@@ -12,3 +12,5 @@ NeMo: |
   Network Modification tool. [Source](https://github.com/kjamison/nemo)
 regex: |
   Short of Regular Expression. Provides a very powerful character search interface. There are various resources online for learning and validating your regex search pattern. 
+connectome: |
+  Term used to denote the collection of connections in the brain.

@@ -54,3 +54,6 @@ codes/W*
 
 .DS_Store
 _extensions/
+*.txt
+
+presentation*
