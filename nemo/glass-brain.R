@@ -3,15 +3,23 @@
 glass_brain <-
   function(data.folder,
            file.pattern,
+           id.pattern="",
            out.name,
            args.glass = NULL) {
     files.full <-
       list.files(data.folder, full.names = TRUE, recursive = TRUE)
     
-    file.paths <-
-      paste(files.full[grepl(pattern = file.pattern, files.full)], collapse = " ")
-    writeLines(file.paths, "volumes.txt")
     
+    # Files subset by file name pattern to select correct data files
+    file_p <- files.full[grepl(pattern = file.pattern, files.full)]
+    
+    # Files further subset by id name pattern to select specific ids only
+    file_pi <- file_p[grep(pattern = id.pattern,file_p)]
+    
+    ## File names are exported to a file, seperated by single space
+    writeLines(paste(file_pi, collapse = " "), "volumes.txt")
+    
+    ## The average_glassprain.py script is run with provided extra arguments
     system(paste(
       "python3 nemo/average_glassbrain.py -o ",
       out.name,

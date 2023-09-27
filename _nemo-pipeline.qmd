@@ -1,3 +1,8 @@
+---
+execute: 
+  eval: false
+---
+
 ## ZIP to data set
 
 So, here I'll show how we went from compressed zip file, from the NeMo tool, and to having a data set for further analyses.
@@ -26,15 +31,11 @@ But first, we need to handle the provided atlas `.txt` files to get ROI names:
 ```{r}
 #| comment: This got unneccessarily complicated due to the fixed with format of the provided atlas file. Sure you can do better!
 atlas <- readLines("/Users/au301842/NeMo_output/Yeo2011_17Networks_NetworkNames_ColorLUT.txt")
-str(atlas[-1]) # It reads as a character vector
-
 rois <- do.call(c,lapply(atlas[-1],function(i){
   s1 <- strsplit(i,"_[0-9]{1,3}_")[[1]][2]
   strsplit(s1," ")[[1]][1]
   }
   ))
-
-str(rois)
 ```
 
 ```{r}
@@ -45,7 +46,6 @@ df <- nemo_collect(
   file.pattern = "chacovol_yeo17_mean.tsv",
   roi.names = rois
 )
-str(df)
 ```
 
 I very much prefer writing function to do the data handling, but I just have to note, that these functions are very primitive due to lack of time on my end. But they are working and will provide a good foundation for further worker.
@@ -64,3 +64,17 @@ glass_brain(
 ```
 
 ![Averaged chacovol glassbrain plot](images/glass_chacovol.png){fig-align="center"}
+
+
+The same scirpt can also be used for lesion plotting:
+
+```{r}
+glass_brain(
+  data.folder = "/Users/folder/with/lesions/",
+  file.pattern = "lesion.nii.gz",
+  id.pattern = "W(50|49)", # This id.pattern is used to only include specified ids
+  out.name = "images/glass_lesion.png"
+)
+```
+
+![Combined lesion plot](images/glass_lesion.png){fig-align="center"}
