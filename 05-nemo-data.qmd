@@ -3,7 +3,7 @@ execute:
   eval: false
 ---
 
-## ZIP to data set
+# ZIP to data set
 
 So, here I'll show how we went from compressed zip file, from the NeMo tool, and to having a data set for further analyses.
 
@@ -50,7 +50,7 @@ df <- nemo_collect(
 
 I very much prefer writing function to do the data handling, but I just have to note, that these functions are very primitive due to lack of time on my end. But they are working and will provide a good foundation for further worker.
 
-### Visualisation
+## Visualisation
 
 We also want those nice glass brains. This is entirely based on the scripts from the NeMo tool, which uses the `nibabel` Python package.
 

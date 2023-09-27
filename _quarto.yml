@@ -15,9 +15,14 @@ book:
   chapters:
     - index.qmd
     - 01-content.qmd
-    - 02-getting-started.qmd
-    - 03-qc.qmd
-    - 04-finding-nemo.qmd
+    - part: "Processing raw MRI data"
+      chapters: 
+        - 02-getting-started.qmd
+        - 03-qc.qmd
+    - part: "Finding Nemo"
+      chapters: 
+        - 04-finding-nemo.qmd
+        - 05-nemo-data.qmd
   appendices: 
     - references.qmd
 

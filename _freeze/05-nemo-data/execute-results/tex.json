@@ -1,0 +1,20 @@
+{
+  "hash": "22ee07a6073d4fb273cd6a858df32b91",
+  "result": {
+    "markdown": "---\nexecute: \n  eval: false\n---\n\n\n\n# ZIP to data set\n\nSo, here I'll show how we went from compressed zip file, from the NeMo tool, and to having a data set for further analyses.\n\nI am fairly new to Python, but have worked in R for many years. This means, that I have written just enough in Python, and everything else in R. Small python functions will be wrapped in R scripts. Just a word of warning.\n\nFirst, extract the compressed file and put it where you like. I'll denote this location as the `source.folder`.\n\n\n\n::: {.cell}\n\n:::\n\n\n\nThen we want to extract the `chacovol` data. This is extracted by unpikling `.pkl` files using a short python script wrapped in R:\n\n\n\n::: {.cell}\n\n:::\n\n\n\nThe unpikled files are then collected and merged in a wide format.\n\nBut first, we need to handle the provided atlas `.txt` files to get ROI names:\n\n\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n\n\nI very much prefer writing function to do the data handling, but I just have to note, that these functions are very primitive due to lack of time on my end. But they are working and will provide a good foundation for further worker.\n\n## Visualisation\n\nWe also want those nice glass brains. This is entirely based on the scripts from the NeMo tool, which uses the `nibabel` Python package.\n\n\n\n::: {.cell}\n\n:::\n\n\n\n![Averaged chacovol glassbrain plot](images/glass_chacovol.png){fig-align=\"center\"}\n\n\nThe same scirpt can also be used for lesion plotting:\n\n\n\n::: {.cell}\n\n:::\n\n\n\n![Combined lesion plot](images/glass_lesion.png){fig-align=\"center\"}\n",
+    "supporting": [
+      "05-nemo-data_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}
