@@ -27,8 +27,8 @@ if [ $# -lt 1 ] ; then
   exit 1 ;
 fi
 
-stem=`remove_ext ${1}`
-mask_stem=`remove_ext ${2}`
+stem=`${FSLDIR}/bin/remove_ext ${1}`
+mask_stem=`${FSLDIR}/bin/remove_ext ${2}`
 
 if [ ! -d ${stem}.anat ] ; then
   if [ $# -eq 1 ]; then
