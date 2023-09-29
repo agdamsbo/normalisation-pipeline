@@ -4,7 +4,8 @@ glass_brain <-
   function(data.folder,
            file.pattern,
            id.pattern="",
-           out.name,
+           out.name="glass_chacovol.png",
+           parcellation=NULL, # Full path to the parcellation Nifti
            args.glass = NULL) {
     files.full <-
       list.files(data.folder, full.names = TRUE, recursive = TRUE)
@@ -19,13 +20,22 @@ glass_brain <-
     ## File names are exported to a file, seperated by single space
     writeLines(paste(file_pi, collapse = " "), "volumes.txt")
     
-    ## The average_glassprain.py script is run with provided extra arguments
+    if (is.null(parcellation)){
+      par.arg <- parcellation
+    } else {
+      par.arg <- paste("-p",parcellation)
+    }
+    
+    ## The nemo_save_average_glassbrain.py script is run with provided extra arguments
     system(paste(
-      "python3 nemo/average_glassbrain.py -o ",
+      "python3 nemo_save_average_glassbrain.py -o",
       out.name,
-      " $(cat volumes.txt)",
+      par.arg,
+      "$(cat volumes.txt)",
       paste(args.glass, collapse = " ")
     ))
+    
+    print(paste("Output file saved as",out.name))
   }
 
 

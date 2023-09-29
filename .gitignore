@@ -57,3 +57,5 @@ _extensions/
 *.txt
 
 presentation*
+
+__pycache__

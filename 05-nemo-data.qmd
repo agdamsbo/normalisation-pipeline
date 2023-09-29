@@ -14,7 +14,7 @@ First, extract the compressed file and put it where you like. I'll denote this l
 
 ```{r}
 #| echo: true
-#| eval: true
+#| eval: false
 # source.folder <- "/full/path/NeMo_output"
 source.folder <- "/Users/au301842/NeMo_output"
 ```
@@ -23,7 +23,7 @@ Then we want to extract the `chacovol` data. This is extracted by unpikling `.pk
 
 ```{r}
 #| echo: true
-#| eval: true
+#| eval: false
 source("nemo/unpkl-sparse.R")
 unpkl_sparse(data.folder = source.folder,
              "chacovol_yeo17_mean.pkl")
@@ -35,7 +35,7 @@ But first, we need to handle the provided atlas `.txt` files to get ROI names:
 
 ```{r}
 #| echo: true
-#| eval: true
+#| eval: false
 #| comment: This got unneccessarily complicated due to the fixed with format of the provided atlas file. Sure you can do better!
 atlas <- readLines("/Users/au301842/NeMo_output/Yeo2011_17Networks_NetworkNames_ColorLUT.txt")
 rois <- do.call(c,lapply(atlas[-1],function(i){
@@ -47,7 +47,7 @@ rois <- do.call(c,lapply(atlas[-1],function(i){
 
 ```{r}
 #| echo: true
-#| eval: true
+#| eval: false
 source("nemo/nemo-collect.R")
 df <- nemo_collect(
   data.folder = source.folder,
@@ -61,11 +61,13 @@ I very much prefer writing function to do the data handling, but I just have to 
 
 ## Visualisation
 
-We also want those nice glass brains. This is entirely based on the scripts from the NeMo tool, which uses the `nibabel` Python package.
+We also want those nice glass brains. These following R scripts are all simple wrappers for the scripts from the NeMo tool, which uses the `nibabel` Python package for plotting. All the examples below are created based on a small sample of two subjects and the [Yeo17](https://pubmed.ncbi.nlm.nih.gov/21653723/) atlas which is also [shared in the NeMo tool source](https://github.com/kjamison/nemo/tree/master/website/atlases).
+
+First we do the simpel voxel based heatmap.
 
 ```{r}
 #| echo: true
-#| eval: true
+#| eval: false
 source("nemo/glass-brain.R")
 glass_brain(
   data.folder = source.folder,
@@ -74,14 +76,28 @@ glass_brain(
 )
 ```
 
-![Averaged chacovol glassbrain plot](images/glass_chacovol.png){fig-align="center"}
+![Averaged voxel based chacovol glassbrain plot](images/glass_chacovol.png){fig-align="center"}
+Next we can do the parcellation or atlas based chacovol plotting:
 
+```{r}
+#| echo: true
+#| eval: false
+source("nemo/glass-brain.R")
+glass_brain(
+  data.folder = source.folder,
+  file.pattern = "chacovol_yeo17_mean.pkl",
+  out.name = "images/glass_chacovol_parc.png",
+  parcellation = "/Users/atlas/folder/Yeo2011_17Networks_MNI152_182x218x182_LiberalMask.nii.gz"
+)
+```
+
+![Averaged parcellation based chacovol glassbrain plot](images/glass_chacovol_parc.png){fig-align="center"}
 
 The same scirpt can also be used for lesion plotting:
 
 ```{r}
 #| echo: true
-#| eval: true
+#| eval: false
 glass_brain(
   data.folder = "/Users/folder/with/lesions/",
   file.pattern = "lesion.nii.gz",
@@ -91,6 +107,22 @@ glass_brain(
 ```
 
 ![Combined lesion plot](images/glass_lesion.png){fig-align="center"}
+
+And finally the change in connections between areas in the brain can be visualised as a graphbrain:
+
+```{r}
+#| echo: true
+#| eval: false
+source("nemo/graph-brain.R")
+graph_brain(
+  data.folder = source.folder,
+  file.pattern = "chacoconn_yeo17_mean.pkl",
+  out.name = "images/glass_chacoconn.png",
+  node.file="/Users/atlas/folder/Yeo2011_17Networks_MNI152_182x218x182_LiberalMask.nii.gz"
+)
+```
+
+![Graph brain plot of lost connections between atlas based ROIs](images/glass_chacoconn.png){fig-align="center"}
 
 ## Glossary
 
