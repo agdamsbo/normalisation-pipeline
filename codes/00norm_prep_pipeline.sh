@@ -117,6 +117,7 @@ for D in *; do
     ## Wishlist
     ## - include subject pattern specification
     ## - flag to opt for manual accept of auto cropping
+    ## - handle spaces in dir-/filenames (they shouldn't be there, but you shouldn't complain either)
     
 done
 
