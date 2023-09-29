@@ -113,6 +113,11 @@ for D in *; do
       echo "### DONE with ${D}###"
       
     fi
+    
+    ## Wishlist
+    ## - include subject pattern specification
+    ## - flag to opt for manual accept of auto cropping
+    
 done
 
 
