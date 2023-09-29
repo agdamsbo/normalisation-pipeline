@@ -20,9 +20,9 @@ Script files are located in the `codes` folder like below.
 ```         
 ${ROOT}
 |-- codes
-   |-- 00nemo_prep_pipeline.sh
+   |-- 00norm_prep_pipeline.sh
    |-- file-structure.R
-   |-- fsl_1mm-norm_bbl.sh
+   |-- fsl_norm_bbl.sh
    |-- fsl_anat_alt_bbl.sh
    |-- modified_brain_mask_bbl.sh
    |-- nemo-packing.R
@@ -68,9 +68,9 @@ ${ROOT}
 
     ```         
     ${ROOT}
-    |-- 00nemo_prep_pipeline.sh
+    |-- 00norm_prep_pipeline.sh
     |-- file-structure.R
-    |-- fsl_1mm-norm_bbl.sh
+    |-- fsl_norm_bbl.sh
     |-- fsl_anat_alt_bbl.sh
     |-- modified_brain_mask_bbl.sh
     |-- nemo-packing.R
@@ -93,10 +93,10 @@ ${ROOT}
     ```{bash}
     #| eval: false
     #| echo: true           
-    sh 00nemo_prep_pipeline.sh 1mm
+    sh 00norm_prep_pipeline.sh 1mm
     ```
 
-    The script has been tweaked to allow for registrering also to 2mm space and also to only do head/brain, so without a lesion mask. Of you can provide a different lesion mask name pattern, if you so desire: `sh 00nemo_prep_pipeline.sh 1mm 'lesion.nii.gz'`
+    The script has been tweaked to allow for registrering also to 2mm space and also to only do head/brain, so without a lesion mask. Of you can provide a different lesion mask name pattern, if you so desire: `sh 00norm_prep_pipeline.sh 1mm 'lesion.nii.gz'`
     
     Then, when ready to start processing your data, fire up the main script, and watch while your computer hums away. Or do something else in the meantime. You'll get time stamps along the way to have an idea of the progress and the time needed. The output files are written along the way, so you can manually check the output while the script works. Note that your original T1 and lesion mask will have "\_orig" appended as suffix and be substituted with corrected files. If the script gets interrupted, you can just restart it, and it will skip subjects already processed. Make sure you delete the output files, if you want the script to rerun on a specific subject.
 
