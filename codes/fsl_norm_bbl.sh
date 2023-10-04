@@ -34,11 +34,15 @@ stem=`${FSLDIR}/bin/remove_ext ${image}`
  # --- warp the lesion mask into MNI space, use nearest neighbour interpolation
  # This step is the least for NeMo, but the next steps can be included for quality control.
  
- if [ `${lesion_mask} | wc -l` != 0 ]; then
+ if [[ -n $lesion_mask ]]; then
         
    echo "--- Normalizing lesion ---"
    applywarp -i ${lesion_mask} -w ${stem}.anat/T1_to_MNI_nonlin_field --interp=nn -r  $FSLDIR/data/standard/MNI152_T1_${res} -o ${stem}_MNI-${res}_lesion
-
+   
+   # create the binary version of the MNI lesion mask (mostly harmless, though I think
+   # not needed since we are doing nearest neighbour interpolation).
+   fslmaths ${stem}_MNI-${res}_lesion -thr 0.5 -bin ${stem}_MNI-${res}_lesion -odt char
+ 
  fi
 
  # --- warp the brain mask into MNI space, use nearest neighbour interpolation
@@ -53,9 +57,7 @@ stem=`${FSLDIR}/bin/remove_ext ${image}`
  
  
  
- # create the binary version of the MNI lesion mask (mostly harmless, though I think
- # not needed since we are doing nearest neighbour interpolation).
- fslmaths ${stem}_MNI-${res}_lesion -thr 0.5 -bin ${stem}_MNI-${res}_lesion -odt char
+ 
 
  
  

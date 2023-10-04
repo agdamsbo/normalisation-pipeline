@@ -14,7 +14,7 @@ All these scripts should be in the same folder, as this main script.
 Script is written with checks to allow for re-run. If the script has been run previously but was interrupted, make sure to manually remove the *.anat folder in the last subject folder. Then re-run.
 COMMENTBLOCK
 
-# If no arguments are povided
+# If no arguments are povided the script will return an error
 if [ $# -lt 0 ] ; then
   echo "Usage: $0 <resolution (1mm or 2mm)> <lesion_mask_namepattern (defaults to 'LesionMask.nii.gz')>"
   echo "e.g. sh 00nemo_prep_pipeline.sh 1mm 'LesionMask.nii.gz' or sh 00nemo_prep_pipeline.sh 1mm"
@@ -23,78 +23,93 @@ if [ $# -lt 0 ] ; then
   exit 1 ;
 fi
 
+# Saving arguments with undrstandable names
 resolution=${1}
 lesionpattern=${2}
 
-echo "This is the lesionmask: $lesionpattern"
-
+# The script will assume that the lesion mask is named something containing "lesion", if not mask name pattern is supplied
 if [[ -z "$lesionpattern" ]] ; then
-  lesiontext='*LesionMask.nii.gz' 
+  lesiontext='*[Ll]esion*.nii.gz' 
 else
   lesiontext=$lesionpattern
 fi
 
-
+# Getting the name of the working directory
 DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 
-
+# Looping across all level 1 subfolders in the folder, from which the script is run
 for D in *; do  
   
     if [ -d "${D}" ]; then
       
-      echo "### Starting with $D ###"
+      date; echo "### Starting with $D ###"
       
-      date_time=$(date +"%D %T")
+      # Extracting the file name of the T1w image, supposing the name ends on T1w.nii.gz
+      t1w=`find "${D}" -name '*T1w.nii.gz' -maxdepth 1`
       
-      t1w=`find "${D}" -name '*T1w.nii.gz'`
+      # Getting the lesion mask file name
+      lesionmask=`find "${D}" -name ${lesiontext}  -maxdepth 1`
       
-      # '*LesionMask.nii.gz' 
+      # Printing the lesion mask file name for sanity checking
+      if [[ -n "$lesionmask" ]]; then
+        echo "This is the lesionmask used: $lesionmask"
+      fi
       
-      lesionmask=`find "${D}" -name ${lesiontext}`
-      
+      # Extracting file stem to supply to child scripts
       fileStem=`remove_ext ${t1w}`
       
+      # Getting the subfolder name for printing status later on
       sub="$D"
       
+      # Checking if .anat folder has already been created in a previous run, assuming the data has then been processed
       if [ ! -d "${fileStem}.anat" ]; then
         
+        # Checking if a lesion mask has been provided
         if [[ -z "$lesionmask" ]]; then
           
-          echo "--- Start processing only brain for $D at $date_time ---"
+          # No lesion mask
+          date; echo "--- Start processing only brain for $D ---"
           
           $DIR/prep_T1w_bbl.sh $t1w
         
         else
         
-          echo "--- Start processing brain and lesion for $D at $date_time ---"
+          # Lesion mask provided
+          date; echo "--- Start processing brain and lesion for $D ---"
           
           $DIR/prep_T1w_bbl.sh $t1w $lesionmask
           
         fi
         
       else
-        echo "--- $D appears to be processed already. Carry on! ---"
+        
+        # No skull stripping
+        date; echo "--- $D appears to be processed already. Carry on! ---"
+        
       fi
       
-      
-      if [ `find "${D}" -name '*[12]mm*' | wc -l` != 0 ]; then
+      # Checking if normalised files of the specified resolution are in the given sub-folder
+      if [ `find "${D}" -name '$resolution' -maxdepth 1 | wc -l` != 0 ]; then
         
-        echo "--- Normalization has already been performed ---"
+        # Normalised files are present and this step i skipped
+        date; echo "--- Normalization has already been performed ---"
         
       else 
         
+        # Normalised files are not present, and normalisation/registration can continue
         ## FSL Normalisation
         
+        # Checking if there is a lesion mask to include
         if [[ -z "$lesionmask" ]]; then
         
-          echo "--- Now to normalization to $resolution space without a lesion ---"
+          date; echo "--- Now to normalization to $resolution space without a lesion ---"
           
           $DIR/fsl_norm_bbl.sh $t1w ${resolution}
         
         else
         
-          echo "--- Now to normalization to $resolution space ---"
+          date; echo "--- Now to normalization to $resolution space ---"
           
           $DIR/fsl_norm_bbl.sh $t1w ${resolution} ${fileStem}.anat/lesionmask
           
@@ -110,7 +125,8 @@ for D in *; do
         
       fi
       
-      echo "### DONE with ${D}###"
+      # Done!
+      date; echo "### DONE with ${D}###"
       
     fi
     
