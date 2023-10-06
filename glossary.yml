@@ -1,5 +1,5 @@
 registration: |
-  I this context, registration denotes to art of registrering to normal space. In this case to the MNI space.
+  I this context, registration denotes to art of registrering to normal space. In this case to the MNI space. Think of it as normalising data.
 fsleyes: |
   Thes picture viewing tool from the fsl-package. For more, [click here](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes).
 pipeline: |
@@ -11,6 +11,17 @@ optiBET: |
 NeMo: |
   Network Modification tool. [Source](https://github.com/kjamison/nemo).
 regex: |
-  Short of Regular Expression. Provides a very powerful character search interface. There are various resources online for learning and validating your regex search pattern. 
+  Short of Regular Expression. Provides a very powerful character search interface. There are various resources online for [learning](https://www.sitepoint.com/learn-regex/) and [validating](https://regex101.com/) your regex search pattern. 
 connectome: |
   Term used to denote the collection of connections in the brain.
+BIDS: |
+  Brain Imaging Data Structure. [Source](https://bids-standard.github.io/bids-starter-kit/index.html)
+ANTs: |
+  Advanced Normalization Tools. [Source](https://github.com/ANTsX/ANTs)
+R: |
+  Free and open source software environment for statistical computing and graphics. [Source](https://www.r-project.org/)
+MNI: |
+  Montreal Neurological Institute. [Source](https://nist.mni.mcgill.ca/atlases/)
+Python: |
+  A snake, or in this case refers to the free and open source programming language Python. [Source](https://www.python.org/)
+
