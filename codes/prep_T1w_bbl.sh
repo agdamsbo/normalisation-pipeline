@@ -27,6 +27,10 @@ if [ $# -lt 1 ] ; then
   exit 1 ;
 fi
 
+# Getting the name of the working directory
+DIR="${BASH_SOURCE%/*}"
+if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
+
 stem=`${FSLDIR}/bin/remove_ext ${1}`
 mask_stem=`${FSLDIR}/bin/remove_ext ${2}`
 
@@ -34,12 +38,12 @@ if [ ! -d ${stem}.anat ] ; then
   if [ $# -eq 1 ]; then
     # run our super spiffy fsl_anat_alt.sh with optiBET.sh
     echo "running prep on anatomical image only"
-    eval ".$DIR/fsl_anat_alt_bbl.sh -i ${stem} --nosubcortseg"
+    $DIR/fsl_anat_alt_bbl.sh -i ${stem} --nosubcortseg
   elif [ $# -eq 2 ]; then
     # run our super spiffy fsl_anat_alt.sh with optiBET.sh
     echo "running prep on anatomical image and lesion mask"
-    eval ".$DIR/fsl_anat_alt_bbl.sh -i ${stem} -m ${mask_stem} --nosubcortseg"
-    immv ${mask_stem} ${mask_stem}_orig
+    $DIR/fsl_anat_alt_bbl.sh -i ${stem} -m ${mask_stem} --nosubcortseg
+    immv ${mask_stem} ${mask_stem}_orig_$(date +"%Y%m%dT%H%M%S")
     imcp ${stem}.anat/lesionmask.nii.gz ${mask_stem}.nii.gz
   fi
 fi
@@ -48,6 +52,6 @@ fi
 imcp ${stem}.anat/T1_biascorr_brain_mask.nii.gz ${stem}_brain_mask.nii.gz
 fslmaths ${stem}_brain_mask.nii.gz ${stem}_brain_mask.nii.gz -odt char
 # also replace the T1w image with the bias corrected, reoriented and cropped version
-immv ${stem} ${stem}_orig
-immv ${stem}.anat/T1_biascorr.nii.gz ${stem}.nii.gz
+immv ${stem} ${stem}_orig_$(date +"%Y%m%dT%H%M%S")
+imcp ${stem}.anat/T1_biascorr.nii.gz ${stem}.nii.gz
 fslmaths ${stem}.nii.gz ${stem}.nii.gz -odt short

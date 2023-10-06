@@ -18,7 +18,7 @@ debugger=no; #default delete intermediate files
 
 iopt=$1
 i=`${FSLDIR}/bin/remove_ext $iopt`; #removes file extensions from input image
-echo $i "is input image"
+echo $i "is input image; working directory is $PWD"
 
 ####END PARSE #################################
 
