@@ -10,6 +10,11 @@ author:
     affiliations:
       - ref: bbl
       - ref: dsc
+    roles: [conceptualization, methodology, software]
+  - name: Christina Rubino
+    affiliation:
+      - ref: bbl
+    roles: [data curation, validation, conceptualization]
 affiliations:
   - id: dsc
     name: Danish Stroke Centre, AUH
