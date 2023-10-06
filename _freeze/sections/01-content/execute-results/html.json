@@ -1,0 +1,18 @@
+{
+  "hash": "a6527118ed3796649edd337b1f75cefb",
+  "result": {
+    "markdown": "# Contents\n\n\n::: {.cell}\n\n:::\n\n\nThe <a class='glossary' title='A set of tools working together as chain links being dependent on one-another. Just a fancy term for “ordered collection”'>pipeline</a> provides a set of handy tools listed below, which I will also go through:\n\n-   *R*-script to organise files into subject-folders\n\n-   <a class='glossary' title='Short version: The language of the terminal console in Windows, Linux and MacOS.'>Bash</a> pipeline to process all subject folders to extract brain mask, and normalise lesion mask to 1 mm MNI space (this is the primary content)\n\n-   <a class='glossary' title='Short version: The language of the terminal console in Windows, Linux and MacOS.'>Bash</a>-script to normalise lesion mask after manual correction of brain mask (no, even using <a class='glossary' title='A four step optimization of the fsl BET tool from the Monti lab at UCLA. Read more.'>optiBET</a> is not perfect)\n\n-   *R*-script to package lesion masks to supply to the NeMo tool.\n\n## Glossary\n\n<table class=\"table\" style=\"margin-left: auto; margin-right: auto;\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\"> term </th>\n   <th style=\"text-align:left;\"> definition </th>\n  </tr>\n </thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> Bash </td>\n   <td style=\"text-align:left;\"> Short version: The language of the terminal console in Windows, Linux and MacOS. </td>\n  </tr>\n  <tr>\n   <td style=\"text-align:left;\"> optiBET </td>\n   <td style=\"text-align:left;\"> A four step optimization of the fsl BET tool from [the Monti lab at UCLA](https://montilab.psych.ucla.edu/fmri-wiki/optibet/). [Read more](https://montilab.psych.ucla.edu/fmri-wiki/optibet/). </td>\n  </tr>\n  <tr>\n   <td style=\"text-align:left;\"> pipeline </td>\n   <td style=\"text-align:left;\"> A set of tools working together as chain links being dependent on one-another. Just a fancy term for \"ordered collection\" </td>\n  </tr>\n</tbody>\n</table>\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-in-header": [
+        "<script src=\"../site_libs/kePrint-0.0.1/kePrint.js\"></script>\n<link href=\"../site_libs/lightable-0.0.1/lightable.css\" rel=\"stylesheet\" />\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

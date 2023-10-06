@@ -1,4 +1,4 @@
-# Getting started
+# Getting started {#sec-start}
 
 ```{r}
 source("glossary_setup.R")
@@ -6,45 +6,72 @@ source("glossary_setup.R")
 
 You need to have the following programs installed:
 
--   [fsl](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL) as well as 
+-   [fsl](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL) as well as
 
--   [*R*](https://www.r-project.org/) and [RStudio (or similar)](https://posit.co/downloads/) installed. 
+-   [*R*](https://www.r-project.org/) and [RStudio (or similar)](https://posit.co/downloads/) installed.
 
 -   I also highly recommend the package [ITK-SNAP](http://itksnap.org/pmwiki/pmwiki.php?n=Main.HomePage), which can be used for some (semi-)manual mask modifications.
 
--   Working on a Linux (Debian/Ubuntu/Mint...) machine, you may want to use the powerful [ANTs package](https://github.com/ANTsX/ANTs) (or the underlying [`ANTsR` package](https://github.com/ANTsX/ANTsR)), which can be used for segmentation and registration as well. A scripting example is provided by [Dr. Dianne Patterson, PhD](https://neuroimaging-core-docs.readthedocs.io/en/latest/pages/ants_anat_normalization-lesion.html).
+-   You may want to use the powerful `r glossary("ANTs")` package (or the underlying [`ANTsR` package](https://github.com/ANTsX/ANTsR)) for `r glossary("registration")`. The included script, to is provided by [Dr. Dianne Patterson, PhD](https://neuroimaging-core-docs.readthedocs.io/en/latest/pages/ants_anat_normalization-lesion.html).
 
+## Let's get to it
+
+::: callout-warning
+## Keep a backup
+
+Before starting, be warned. The script might override original data with modified data without warning. Please keep a backup of original files. Now you have been warned.
+:::
 
 Script files are located in the `codes` folder like below.
 
-```         
-${ROOT}
-|-- codes
-   |-- 00norm_prep_pipeline.sh
-   |-- file-structure.R
-   |-- fsl_norm_bbl.sh
-   |-- fsl_anat_alt_bbl.sh
-   |-- modified_brain_mask_bbl.sh
-   |-- nemo-packing.R
-   |-- optiBET.sh
-   |-- prep_T1w_bbl.sh
-   |-- T1_2_MNI152_1mm.cnf
-|-- ...
+```{r}
+#| eval: false
+#| echo: false
+# code to print the files content of a given path. The output is then modified sligtly for printing.
+tree <-
+    fs::dir_tree(
+        paste0(rstudioapi::getActiveProject(), "/codes"),
+        recurse = 0,
+        regexp = "^((?!W[0-9]{2}).)*$", # Leaving out the two subject folders with sample data
+        perl = TRUE
+    )
 ```
 
-1.  Move the contents of the `codes` folder to where you want your files to be located. This folder is now referred to as the root directory. Now, open a terminal window in the root directory.
+```         
+${normalisation-pipeline}
+├── ...
+├── codes
+   ├── 00norm_prep_pipeline.sh
+   ├── T1_2_MNI152_1mm.cnf
+   ├── ant_reg3_bbl.sh
+   ├── file-structure.R
+   ├── fsl_anat_alt_bbl.sh
+   ├── fsl_norm_bbl.sh
+   ├── modified_brain_mask_bbl.sh
+   ├── multi_punch.sh
+   ├── nemo-packing.R
+   ├── optiBET.sh
+   └── prep_T1w_bbl.sh
+├── ...
+```
 
-2.  Start by copying a new configuration file for fsl, to do registration to 1mm MNI space (basically the same as the 2mm config, but references the 1mm MNI):
+1.  Download or clone the repository to your computer and extract the folder if necessary. Move the contents of the `codes` folder to whereever you find appropriate (or just leave them for now). This is now the "codes folder" and will be referenced as `/codes/folder/` in the script examples. Edit this to run on your computer.
 
-    ```{bash}
-    #| eval: false
-    #| echo: true
-    imcp T1_2_MNI152_1mm.cnf $FSLDIR/etc/flirtsch/T1_2_MNI152_1mm.cnf
+    Now, open a terminal window and navigate to in the parent directory of your data folder, which we will now refer to as the "root directory".
+
+    This pipeline assumes, that your files are organised in the following way. This is not completely according to the `r glossary("BIDS")`-format, but that might be coming in the future. For now, this is the way:
+
+    ```         
+    ${ROOT}
+    ├── sub01
+        ├── sub01_T1w.nii.gz (T1 weighted base image)
+        ├── sub01_lesion.nii.gz (lesion mask, optional)
+    ├── subNN
+        ├── subNN_T1w.nii.gz
+        ├── subNN_lesion.nii.gz
     ```
 
-    See [this mail thread](https://www.jiscmail.ac.uk/cgi-bin/webadmin?A2=fsl;2fa01b76.1208) for a note on the 1mm normalization. It is needed for the NeMo-tool however.
-
-3.  Open the `file-prep.R` script and edit the first three variables. Save it and then, run the following in the terminal window:
+    If, your files are like this, just jump ahead. If your files are all on one folder, but named as above, you can use the `file-prep.R` script to organise subject files into subfolders. Open the script and edit the first three variables. Save it and then, run the following in the terminal window:
 
     ```{bash}
     #| eval: false
@@ -52,67 +79,33 @@ ${ROOT}
     Rscript file-prep.R
     ```
 
-    Instructions are in this file. Note that, this script assumes your data files are ordered as below:
+    Now the files and folders should be structured as expected.
 
-    ```         
-    ${ORIGINAL DATAFOLDER}
-    |-- sub01_T1w.nii.gz
-    |-- sub01_LesionMask.nii.gz
-    |-- sub02_T1w.nii.gz
-    |-- sub02_LesionMask.nii.gz
-    |-- subNN_T1w.nii.gz
-    |-- subNN_LesionMask.nii.gz
+2.  *Optional*: If you want to do `r glossary("registration")` to 1mm MNI space, you need to add a new config file to `r glossary("fsl")`. If not, skip ahead. The config file is the `.cnf` file in your codes folder, and it can be copied to the correct location using the following command:
+
+    ```{bash}
+    #| eval: false
+    #| echo: true
+    imcp /codes/folder/T1_2_MNI152_1mm.cnf $FSLDIR/etc/flirtsch/T1_2_MNI152_1mm.cnf
     ```
 
-    Now the files and folders are structured as expected, as below:
+    Depending on what you are doing, you'll probably be fine doing 2mm registration, but for some use cases, the 1mm registration is necessary. [Here is a discussion, I found useful on doing 1 or 2 mm](https://www.jiscmail.ac.uk/cgi-bin/webadmin?A2=fsl;2fa01b76.1208).
 
-    ```         
-    ${ROOT}
-    |-- 00norm_prep_pipeline.sh
-    |-- file-structure.R
-    |-- fsl_norm_bbl.sh
-    |-- fsl_anat_alt_bbl.sh
-    |-- modified_brain_mask_bbl.sh
-    |-- nemo-packing.R
-    |-- optiBET.sh
-    |-- prep_T1w_bbl.sh
-    |-- T1_2_MNI152_1mm.cnf
-    |-- sub01
-        |-- sub01_T1w.nii.gz
-        |-- sub01_LesionMask.nii.gz
-    |-- sub02
-        |-- sub02_T1w.nii.gz
-        |-- sub02_LesionMask.nii.gz
-    |-- subNN
-        |-- subNN_T1w.nii.gz
-        |-- subNN_LesionMask.nii.gz
-    ```
-
-4.  In a terminal window, make sure you're in the source directory, where your codes and scans are located. Then run the following:
+3.  Now you are ready for start data processing. The script has a few assumptions. It will look for a file with the file name pattern '*\[Ll\]esion*.nii.gz', and assume this is a lesion mask for the T1 weighted image (which should be named '\*T1w.nii.gz'). You may optionally specify the lesion mask file name pattern used, eg: `sh 00norm_prep_pipeline.sh 1mm 'lesion.nii.gz'`. If no lesion mask is in the folder, the script will just perform skull stripping and registration of the head/brain. The script will also assume you want 2mm registration and do so with fsl. To view the documentation and see a few examples run this:
 
     ```{bash}
     #| eval: false
     #| echo: true           
-    sh 00norm_prep_pipeline.sh 1mm
+    sh /codes/folder/00norm_prep_pipeline.sh -h
     ```
 
-    The script has been tweaked to allow for registrering also to 2mm space and also to only do head/brain, so without a lesion mask. Of you can provide a different lesion mask name pattern, if you so desire: `sh 00norm_prep_pipeline.sh 1mm 'lesion.nii.gz'`
-    
-    Then, when ready to start processing your data, fire up the main script, and watch while your computer hums away. Or do something else in the meantime. You'll get time stamps along the way to have an idea of the progress and the time needed. The output files are written along the way, so you can manually check the output while the script works. Note that your original T1 and lesion mask will have "\_orig" appended as suffix and be substituted with corrected files. If the script gets interrupted, you can just restart it, and it will skip subjects already processed. Make sure you delete the output files, if you want the script to rerun on a specific subject.
+    Then, when ready run the main script with your desired settings. Now processing starts, and it will take some time. Sit back and relax while your computer hums away. Or do something else in the meantime. You'll get time stamps along the way to have an idea of the progress and the time needed. The output files are written along the way, so you can manually check the output while the script works. Note that your original T1 and lesion mask will have "\_orig" appended as suffix and be substituted with corrected files. If the script gets interrupted, you can just restart it, and it will skip subjects already processed. Make sure you delete the output files, if you want the script to rerun on a specific subject.
 
-5.  Now it is time for quality control. Please refer to the [separate chapter](#qc) on this.
-
-6.  Now you should be ready to package for the NeMo tool. The web interface has an upload limit of 10 lesion masks. Open and edit the source-folder in the `nemo-packing.R` script. It will collect all 1mm MNI lesion masks and package in zip-files of max 10 lesion masks each and put them in the provided folder. Save and then run the following:
-
-    ```{bash}
-    #| eval: false
-    #| echo: true           
-    Rscript nemo-packing.R
-    ```
+4.  Now it is time for quality control. Please refer to the separate @sec-qc on this. Then, you are done and can use these normalised files however you like.
 
 ## Glossary
 
 ```{r}
+#| echo: false
 glossary_table()
 ```
-

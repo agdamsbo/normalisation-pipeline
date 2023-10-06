@@ -36,7 +36,7 @@ But first, we need to handle the provided atlas `.txt` files to get ROI names:
 ```{r}
 #| echo: true
 #| eval: false
-#| comment: This got unneccessarily complicated due to the fixed with format of the provided atlas file. Sure you can do better!
+#| comment: This got unneccessarily complicated due to the fixed width format of the provided atlas file. Sure you can do better!
 atlas <- readLines("/Users/au301842/NeMo_output/Yeo2011_17Networks_NetworkNames_ColorLUT.txt")
 rois <- do.call(c,lapply(atlas[-1],function(i){
   s1 <- strsplit(i,"_[0-9]{1,3}_")[[1]][2]

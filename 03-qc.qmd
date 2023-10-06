@@ -1,4 +1,4 @@
-# Quality control {#qc}
+# Quality control {#sec-qc}
 
 ```{r}
 source("glossary_setup.R")

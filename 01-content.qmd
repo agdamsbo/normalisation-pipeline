@@ -7,14 +7,19 @@ source("glossary_setup.R")
 
 The `r glossary("pipeline")` provides a set of handy tools listed below, which I will also go through:
 
--   *R*-script to organise files into subject-folders
+-   `r glossary("Bash")` pipeline to process multiple subject folders to do cropping, bias correction and skull stripping before registering brain and possibly lesion mask to 1 or 2 mm `r glossary("MNI")` space (this is the primary content). The `r glossary("registration")` can be performed with `r glossary("fsl")` or `r glossary("ANTs")`.
 
--   `r glossary("Bash")` pipeline to process all subject folders to extract brain mask, and normalise lesion mask to 1 mm MNI space (this is the primary content)
+-   A few other `r glossary("Bash")`-scripts to register brain and lesion mask after manual correction of brain mask (no, even using `r glossary("optiBET")` is not perfect), and to do other things.
 
--   `r glossary("Bash")`-script to normalise lesion mask after manual correction of brain mask (no, even using `r glossary("optiBET")` is not perfect)
+-   A few *`r glossary("R")`*-scripts to organise files and to package lesion masks to supply to the `r glossary("NeMo")` tool in @sec-nemo. 
 
--   *R*-script to package lesion masks to supply to the NeMo tool.
+-   In a separate folder (`nemo/`) I've included a few scripts to collect data from the `r glossary("NeMo")`-output and do basic visualisation based on the `r glossary("NeMo")` output data.
+
+-   Finally, three `r glossary("Python")` scripts from the `r glossary("NeMo")`-[repository](https://github.com/kjamison/nemo): `nemo_save_average_glassbrain.py`, `nemo_save_average_graphbrain.py` and `nemo_save_average_matrix_figure.py`. These are used for data visualisation in the included pipeline use case example in @sec-nemo.
 
 ## Glossary
 
-`r glossary_table()`
+```{r}
+#| echo: false
+glossary_table()
+```

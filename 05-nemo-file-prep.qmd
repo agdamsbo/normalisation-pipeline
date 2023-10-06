@@ -1,6 +1,7 @@
-# Using the NeMo tool {#nemo}
+# Using the NeMo tool {#sec-nemo}
 
 ```{r}
+#| echo: false
 source("glossary_setup.R")
 ```
 
