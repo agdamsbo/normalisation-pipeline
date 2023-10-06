@@ -15,17 +15,20 @@ book:
   chapters:
     - index.qmd
     - 01-content.qmd
-    - part: "Processing raw MRI data"
+    - 02-getting-started.qmd
+    - 03-qc.qmd
+    - part: "Use case #1: Finding NeMo"
       chapters: 
-        - 02-getting-started.qmd
-        - 03-qc.qmd
-    - part: "Finding Nemo"
-      chapters: 
-        - 04-finding-nemo.qmd
-        - 05-nemo-data.qmd
+        - 04-lesion-reg.qmd
+        - 05-nemo-file-prep.qmd
+        - 06-nemo-data.qmd
   appendices: 
-    - references.qmd
+    # - references.qmd
+    - NEWS.md
 
+citation:
+  url: https://agdamsbo.github.io/normalisation-pipeline/
+  type: book
 bibliography: references.bib
 
 execute:
