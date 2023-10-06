@@ -45,6 +45,14 @@ registration=fsl
 # Assumes resolution is 2mm, changed later with flag
 resolution=2mm
 
+set -e
+LOGFILE=log_$(date +"%Y%m%dT%H%M%S").txt
+
+run() {
+  echo $@ >> $LOGFILE
+  $@
+}
+
 while [ "$#" -gt 0 ]; do
   case "$1" in
     -l) lesionpattern="$2"; shift 2;;
@@ -56,14 +64,11 @@ while [ "$#" -gt 0 ]; do
 
     # --resolution=*) resolution="${1#*=}"; shift 1;;
     # --lesionpattern=*) lesionpattern="${1#*=}"; shift 1;;
-    # --help) Usage; exit 0;;
-    # --resolution|--lesionpattern) echo "$1 requires an argument" >&2; exit 1;;
     
     -*) echo "unknown option: $1" >&2; Usage; exit 1;;
     *) handle_argument "$1"; shift 1;;
   esac
 done
-
 
 # The script will assume that the lesion mask is named something containing "lesion", if not mask name pattern is supplied
 if [[ -z "$lesionpattern" ]] ; then
@@ -77,17 +82,22 @@ else
   subdirs=$subpattern
 fi
 
-# Printing the final resolution
-echo "### Final registration will be $resolution, using $registration ###"
-
 # Getting the name of the working directory
 DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
+
+# Basic log entries
+echo "Script invoked at $(date +"%Y-%m-%dT%H:%M:%S")" >> $LOGFILE
+echo "Final registration will be $resolution, using $registration" >> $LOGFILE
+echo "Script invoked from directory = `pwd`" >> $LOGFILE
+echo "Working directory is $DIR" >> $LOGFILE
 
 # Looping across all level 1 subfolders in the folder, from which the script is run
 for D in *; do  
   
     if [[ -d ${D} ]] && [[ ${D} =~ $subdirs ]]; then
+      
+      echo "Processing $D started at $(date +"%Y-%m-%dT%H:%M:%S")" >> $LOGFILE
       
       date; echo "### Starting with $D ###"
       
@@ -133,14 +143,14 @@ for D in *; do
           # No lesion mask
           date; echo "--- Start processing only brain for $D ---"
           
-          $DIR/prep_T1w_bbl.sh $t1w
+          run $DIR/prep_T1w_bbl.sh $t1w
         
         else
         
           # Lesion mask provided
           date; echo "--- Start processing brain and lesion for $D ---"
           
-          $DIR/prep_T1w_bbl.sh $t1w $lesionmask
+          run $DIR/prep_T1w_bbl.sh $t1w $lesionmask
           
         fi
         
@@ -179,7 +189,7 @@ for D in *; do
             date; echo "--- Now to ANTs normalization to $resolution space ---"
             
             # The script assumes the location of 
-            sh $DIR/ant_reg3_bbl.sh $t1w $resolution
+            run sh $DIR/ant_reg3_bbl.sh $t1w $resolution
           fi
           
         else
@@ -190,13 +200,13 @@ for D in *; do
           
             date; echo "--- Now to FSL normalization to $resolution space without a lesion ---"
             
-            $DIR/fsl_norm_bbl.sh $t1w ${resolution}
+            run $DIR/fsl_norm_bbl.sh $t1w ${resolution}
           
           else
           
             date; echo "--- Now to FSL normalization to $resolution space ---"
             
-            $DIR/fsl_norm_bbl.sh $t1w ${resolution} ${fileStem}.anat/lesionmask
+            run $DIR/fsl_norm_bbl.sh $t1w ${resolution} ${fileStem}.anat/lesionmask
             
           fi
           
