@@ -129,8 +129,6 @@ for D in *; do
         exit 0;
       fi
       
-      echo "Lesion mask used is $lesionmask" >> $LOGFILE
-      
       # Extracting file stem to supply to child scripts
       fileStem=`remove_ext ${t1w}`
       
@@ -154,6 +152,8 @@ for D in *; do
         
           # Lesion mask provided
           date; echo "--- Start processing brain and lesion for $D ---"
+          
+          echo "Lesion mask used is $lesionmask" >> $LOGFILE
           
           run $DIR/prep_T1w_bbl.sh $t1w $lesionmask
           
