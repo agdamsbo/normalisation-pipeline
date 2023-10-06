@@ -1,5 +1,14 @@
 # Changelog
 
+## 2023.10.06
+
+This is the final version before leaving the Brain Behavior Lab for now. I have been working hard on maturing the script to better handle different use cases.
+
+The script will run without any specifications passed to it and default to 2 mm fsl registration with or without a lesion mask. It also 1 mm registration if you follow the instructions to supply a modified `.cnf` config file to fsl, see [@sec-start]. It also does ANTs registration, but only if a lesion mask is supplied. The script also allows for lesion mask regex specification as well as regex subfolder specification. It will stopp processing if there are several lesion masks in a subfolder. The scripts in `codes/` can be located anywhere, but has to be launched from a terminal window in the parent folder of subject-wise data folder. See the [@sec-gettoit] regarding expected file structure.
+
+Comments and questions are welcome on [GitHub Discussions](https://github.com/agdamsbo/normalisation-pipeline/discussions).
+
+
 ## 2023.10.05
 
 ### Notes
