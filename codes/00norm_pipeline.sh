@@ -103,6 +103,7 @@ for D in *; do
       
       # Extracting the file name of the T1w image, supposing the name ends on T1w.nii.gz
       t1w=`find "${D}" -maxdepth 1 -name '*T1w.nii.gz'`
+      echo "Main structural image is $t1w" >> $LOGFILE
       
       # Getting the lesion mask file name
       # Please note, that I am excluding filenames we assume comes from previous normalisation and files, that were copied 
@@ -122,9 +123,13 @@ for D in *; do
         echo "### The files are the following:"
         echo " "
         echo "$lesionmask"
+        echo "ERROR: process stopped at $(date +"%Y-%m-%dT%H:%M:%S") as ${#lesiontest[@]} lesion masks are in the subject folder of $D" >> $LOGFILE
+        echo "$lesionmask" >> $LOGFILE
         echo " "
         exit 0;
       fi
+      
+      echo "Lesion mask used is $lesionmask" >> $LOGFILE
       
       # Extracting file stem to supply to child scripts
       fileStem=`remove_ext ${t1w}`
