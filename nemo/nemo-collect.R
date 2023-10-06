@@ -19,8 +19,7 @@ nemo_collect <- function(data.folder,
   colnames(df) <- roi.names
   
   if (id.pattern!=""){
-    require(stRoke)
-    ids <- stRoke::str_extract(files_pi,pattern = id.pattern)
+    ids <- sub(paste0(".*?(",id.pattern,").*$"),"\\1",files_pi)
   } else {ids <- LETTERS[seq_along(files_pi)]}
   
   data.frame(id=ids,df)
