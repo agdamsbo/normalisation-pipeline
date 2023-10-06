@@ -168,10 +168,10 @@ run() {
 quick_smooth() {
   in=$1
   out=$2
-  $FSLDIR/bin/fslmaths $in -subsamp2 -subsamp2 -subsamp2 -subsamp2 vol16
-  $FSLDIR/bin/flirt -in vol16 -ref $in -out $out -noresampblur -applyxfm -paddingsize 16
+  run $FSLDIR/bin/fslmaths $in -subsamp2 -subsamp2 -subsamp2 -subsamp2 vol16
+  run $FSLDIR/bin/flirt -in vol16 -ref $in -out $out -noresampblur -applyxfm -paddingsize 16
   # possibly do a tiny extra smooth to $out here?
-  $FSLDIR/bin/imrm vol16
+  run $FSLDIR/bin/imrm vol16
 }
 
 # Parse input arguments
@@ -387,17 +387,17 @@ if [ $multipleimages = yes ] ; then
 	    echo "ERROR: Cannot find image $name"
 	    exit 1;
 	fi
-	$FSLDIR/bin/fslmaths $name ${outputname}.anat/${T1}_${num}
+	run $FSLDIR/bin/fslmaths $name ${outputname}.anat/${T1}_${num}
     done
     echo "Input images are ${namelist}" >> ${outputname}.anat/$LOGFILE
 else
-    $FSLDIR/bin/fslmaths ${inputimage} ${outputname}.anat/${T1}
+    run $FSLDIR/bin/fslmaths ${inputimage} ${outputname}.anat/${T1}
     echo "Input image is ${inputimage}" >> ${outputname}.anat/$LOGFILE
 fi
 
 
 if [ $use_lesionmask = yes ] ; then
-    $FSLDIR/bin/fslmaths $lesionmask ${outputname}.anat/lesionmask
+    run $FSLDIR/bin/fslmaths $lesionmask ${outputname}.anat/lesionmask
     echo "Lesion mask is ${lesionmask}" >> ${outputname}.anat/$LOGFILE
 fi
 
@@ -413,7 +413,7 @@ echo " " >> $LOGFILE
 if [ $multipleimages = yes ] ; then
     date; echo "Averaging list of input images"
     mkdir average_dir
-    $FSLDIR/bin/AnatomicalAverage -w average_dir -o ${T1} `$FSLDIR/bin/imglob ${T1}_*`
+    run $FSLDIR/bin/AnatomicalAverage -w average_dir -o ${T1} `$FSLDIR/bin/imglob ${T1}_*`
 fi
 
 
@@ -439,10 +439,10 @@ fi
 # output: ${T1} (modified) [ and ${T1}_orig and .mat ]
 if [ $do_reorient = yes ] ; then
     date; echo "Reorienting to standard orientation"
-    $FSLDIR/bin/fslmaths ${T1} ${T1}_orig
-    $FSLDIR/bin/fslreorient2std ${T1} > ${T1}_orig2std.mat
-    $FSLDIR/bin/convert_xfm -omat ${T1}_std2orig.mat -inverse ${T1}_orig2std.mat
-    $FSLDIR/bin/fslreorient2std ${T1} ${T1}
+    run $FSLDIR/bin/fslmaths ${T1} ${T1}_orig
+    run $FSLDIR/bin/fslreorient2std ${T1} > ${T1}_orig2std.mat
+    run $FSLDIR/bin/convert_xfm -omat ${T1}_std2orig.mat -inverse ${T1}_orig2std.mat
+    run $FSLDIR/bin/fslreorient2std ${T1} ${T1}
 fi
 
 
@@ -451,13 +451,13 @@ fi
 # output: ${T1} (modified) [ and ${T1}_fullfov plus various .mats ]
 if [ $do_crop = yes ] ; then
     date; echo "Automatically cropping the image"
-    $FSLDIR/bin/immv ${T1} ${T1}_fullfov
-    $FSLDIR/bin/robustfov -i ${T1}_fullfov -r ${T1} -m ${T1}_roi2nonroi.mat | grep [0-9] | tail -1 > ${T1}_roi.log
+    run $FSLDIR/bin/immv ${T1} ${T1}_fullfov
+    run $FSLDIR/bin/robustfov -i ${T1}_fullfov -r ${T1} -m ${T1}_roi2nonroi.mat | grep [0-9] | tail -1 > ${T1}_roi.log
     # combine this mat file and the one above (if generated)
     if [ $do_reorient = yes ] ; then
-	$FSLDIR/bin/convert_xfm -omat ${T1}_nonroi2roi.mat -inverse ${T1}_roi2nonroi.mat
-	$FSLDIR/bin/convert_xfm -omat ${T1}_orig2roi.mat -concat ${T1}_nonroi2roi.mat ${T1}_orig2std.mat
-	$FSLDIR/bin/convert_xfm -omat ${T1}_roi2orig.mat -inverse ${T1}_orig2roi.mat
+	run $FSLDIR/bin/convert_xfm -omat ${T1}_nonroi2roi.mat -inverse ${T1}_roi2nonroi.mat
+	run $FSLDIR/bin/convert_xfm -omat ${T1}_orig2roi.mat -concat ${T1}_nonroi2roi.mat ${T1}_orig2std.mat
+	run $FSLDIR/bin/convert_xfm -omat ${T1}_roi2orig.mat -inverse ${T1}_orig2roi.mat
     fi
 fi
 
@@ -468,14 +468,14 @@ if [ $use_lesionmask = yes ] ; then
     if [ -f ${T1}_orig2std.mat ] ; then transform=${T1}_orig2std.mat ; fi
     if [ -f ${T1}_orig2roi.mat ] ; then transform=${T1}_orig2roi.mat ; fi   # this takes precedence if both exist
     if [ X$transform != X ] ; then
-	$FSLDIR/bin/fslmaths lesionmask lesionmask_orig
-	$FSLDIR/bin/flirt -in lesionmask_orig -ref ${T1} -applyxfm -interp nearestneighbour -init ${transform} -out lesionmask
+	run $FSLDIR/bin/fslmaths lesionmask lesionmask_orig
+	run $FSLDIR/bin/flirt -in lesionmask_orig -ref ${T1} -applyxfm -interp nearestneighbour -init ${transform} -out lesionmask
     fi
 else
-    $FSLDIR/bin/fslmaths ${T1} -mul 0 lesionmask
+    run $FSLDIR/bin/fslmaths ${T1} -mul 0 lesionmask
 fi
-$FSLDIR/bin/fslmaths lesionmask -bin lesionmask
-$FSLDIR/bin/fslmaths lesionmask -binv lesionmaskinv
+run $FSLDIR/bin/fslmaths lesionmask -bin lesionmask
+run $FSLDIR/bin/fslmaths lesionmask -binv lesionmaskinv
 
 
 ##### BIAS FIELD CORRECTION (main work, although also refined later on if segmentation run)
@@ -487,66 +487,66 @@ if [ $do_biasrestore = yes ] ; then
 	# for the first step (very gross bias field) don't worry about the lesionmask
 	# the following is a replacement for : run $FSLDIR/bin/fslmaths ${T1} -s 20 ${T1}_s20
 	quick_smooth ${T1} ${T1}_s20
-	$FSLDIR/bin/fslmaths ${T1} -div ${T1}_s20 ${T1}_hpf
+	run $FSLDIR/bin/fslmaths ${T1} -div ${T1}_s20 ${T1}_hpf
 	if [ $do_bet = yes ] ; then
         # get a rough brain mask - it can be *VERY* rough (i.e. missing huge portions of the brain or including non-brain, but non-background) - use -f 0.1 to err on being over inclusive
-	    $FSLDIR/bin/bet ${T1}_hpf ${T1}_hpf_brain -m -f 0.1
+	    run $FSLDIR/bin/bet ${T1}_hpf ${T1}_hpf_brain -m -f 0.1
 
 	else
-	    $FSLDIR/bin/fslmaths ${T1}_hpf ${T1}_hpf_brain
-	    $FSLDIR/bin/fslmaths ${T1}_hpf_brain -bin ${T1}_hpf_brain_mask
+	    run $FSLDIR/bin/fslmaths ${T1}_hpf ${T1}_hpf_brain
+	    run $FSLDIR/bin/fslmaths ${T1}_hpf_brain -bin ${T1}_hpf_brain_mask
 	fi
-	$FSLDIR/bin/fslmaths ${T1}_hpf_brain_mask -mas lesionmaskinv ${T1}_hpf_brain_mask
+	run $FSLDIR/bin/fslmaths ${T1}_hpf_brain_mask -mas lesionmaskinv ${T1}_hpf_brain_mask
         # get a smoothed version without the edge effects
-	$FSLDIR/bin/fslmaths ${T1} -mas ${T1}_hpf_brain_mask ${T1}_hpf_s20
+	run $FSLDIR/bin/fslmaths ${T1} -mas ${T1}_hpf_brain_mask ${T1}_hpf_s20
 	quick_smooth ${T1}_hpf_s20 ${T1}_hpf_s20
 	quick_smooth ${T1}_hpf_brain_mask ${T1}_initmask_s20
-	$FSLDIR/bin/fslmaths ${T1}_hpf_s20 -div ${T1}_initmask_s20 -mas ${T1}_hpf_brain_mask ${T1}_hpf2_s20
-	$FSLDIR/bin/fslmaths ${T1} -mas ${T1}_hpf_brain_mask -div ${T1}_hpf2_s20 ${T1}_hpf2_brain
+	run $FSLDIR/bin/fslmaths ${T1}_hpf_s20 -div ${T1}_initmask_s20 -mas ${T1}_hpf_brain_mask ${T1}_hpf2_s20
+	run $FSLDIR/bin/fslmaths ${T1} -mas ${T1}_hpf_brain_mask -div ${T1}_hpf2_s20 ${T1}_hpf2_brain
 	# make sure the overall scaling doesn't change (equate medians)
 	med0=`$FSLDIR/bin/fslstats ${T1} -k ${T1}_hpf_brain_mask -P 50`;
 	med1=`$FSLDIR/bin/fslstats ${T1}_hpf2_brain -k ${T1}_hpf_brain_mask -P 50`;
-	$FSLDIR/bin/fslmaths ${T1}_hpf2_brain -div $med1 -mul $med0 ${T1}_hpf2_brain
+	run $FSLDIR/bin/fslmaths ${T1}_hpf2_brain -div $med1 -mul $med0 ${T1}_hpf2_brain
 	date; echo "Estimating and removing bias field (stage 2 - detailed fields)"
-	$FSLDIR/bin/fslmaths ${T1}_hpf2_brain -mas lesionmaskinv ${T1}_hpf2_maskedbrain
-	$FSLDIR/bin/fast -o ${T1}_initfast -l ${smooth} -b -B -t $type --iter=${niter} --nopve --fixed=0 -v ${T1}_hpf2_maskedbrain
-	$FSLDIR/bin/fslmaths ${T1}_initfast_restore -mas lesionmaskinv ${T1}_initfast_maskedrestore
-	$FSLDIR/bin/fast -o ${T1}_initfast2 -l ${smooth} -b -B -t $type --iter=${niter} --nopve --fixed=0 -v ${T1}_initfast_maskedrestore
-	$FSLDIR/bin/fslmaths ${T1}_hpf_brain_mask ${T1}_initfast2_brain_mask
+	run $FSLDIR/bin/fslmaths ${T1}_hpf2_brain -mas lesionmaskinv ${T1}_hpf2_maskedbrain
+	run $FSLDIR/bin/fast -o ${T1}_initfast -l ${smooth} -b -B -t $type --iter=${niter} --nopve --fixed=0 -v ${T1}_hpf2_maskedbrain
+	run $FSLDIR/bin/fslmaths ${T1}_initfast_restore -mas lesionmaskinv ${T1}_initfast_maskedrestore
+	run $FSLDIR/bin/fast -o ${T1}_initfast2 -l ${smooth} -b -B -t $type --iter=${niter} --nopve --fixed=0 -v ${T1}_initfast_maskedrestore
+	run $FSLDIR/bin/fslmaths ${T1}_hpf_brain_mask ${T1}_initfast2_brain_mask
     else
 	if [ $do_bet = yes ] ; then
         # get a rough brain mask - it can be *VERY* rough (i.e. missing huge portions of the brain or including non-brain, but non-background) - use -f 0.1 to err on being over inclusive
-	    $FSLDIR/bin/bet ${T1} ${T1}_initfast2_brain -m -f 0.1
+	    run $FSLDIR/bin/bet ${T1} ${T1}_initfast2_brain -m -f 0.1
 
 	else
-	    $FSLDIR/bin/fslmaths ${T1} ${T1}_initfast2_brain
-	    $FSLDIR/bin/fslmaths ${T1}_initfast2_brain -bin ${T1}_initfast2_brain_mask
+	    run $FSLDIR/bin/fslmaths ${T1} ${T1}_initfast2_brain
+	    run $FSLDIR/bin/fslmaths ${T1}_initfast2_brain -bin ${T1}_initfast2_brain_mask
 	fi
-	$FSLDIR/bin/fslmaths ${T1}_initfast2_brain ${T1}_initfast2_restore
+	run $FSLDIR/bin/fslmaths ${T1}_initfast2_brain ${T1}_initfast2_restore
     fi
     # redo fast again to try and improve bias field
-    $FSLDIR/bin/fslmaths ${T1}_initfast2_restore -mas lesionmaskinv ${T1}_initfast2_maskedrestore
-    $FSLDIR/bin/fast -o ${T1}_fast -l ${smooth} -b -B -t $type --iter=${niter} --nopve --fixed=0 -v ${T1}_initfast2_maskedrestore
+    run $FSLDIR/bin/fslmaths ${T1}_initfast2_restore -mas lesionmaskinv ${T1}_initfast2_maskedrestore
+    run $FSLDIR/bin/fast -o ${T1}_fast -l ${smooth} -b -B -t $type --iter=${niter} --nopve --fixed=0 -v ${T1}_initfast2_maskedrestore
 
     date; echo "Extrapolating bias field from central region"
     # use the latest fast output
-    $FSLDIR/bin/fslmaths ${T1} -div ${T1}_fast_restore -mas ${T1}_initfast2_brain_mask ${T1}_fast_totbias
-    $FSLDIR/bin/fslmaths ${T1}_initfast2_brain_mask -ero -ero -ero -ero -mas lesionmaskinv ${T1}_initfast2_brain_mask2
-    $FSLDIR/bin/fslmaths ${T1}_fast_totbias -sub 1 ${T1}_fast_totbias
-    $FSLDIR/bin/fslsmoothfill -i ${T1}_fast_totbias -m ${T1}_initfast2_brain_mask2 -o ${T1}_fast_bias
-    $FSLDIR/bin/fslmaths ${T1}_fast_bias -add 1 ${T1}_fast_bias
-    $FSLDIR/bin/fslmaths ${T1}_fast_totbias -add 1 ${T1}_fast_totbias
+    run $FSLDIR/bin/fslmaths ${T1} -div ${T1}_fast_restore -mas ${T1}_initfast2_brain_mask ${T1}_fast_totbias
+    run $FSLDIR/bin/fslmaths ${T1}_initfast2_brain_mask -ero -ero -ero -ero -mas lesionmaskinv ${T1}_initfast2_brain_mask2
+    run $FSLDIR/bin/fslmaths ${T1}_fast_totbias -sub 1 ${T1}_fast_totbias
+    run $FSLDIR/bin/fslsmoothfill -i ${T1}_fast_totbias -m ${T1}_initfast2_brain_mask2 -o ${T1}_fast_bias
+    run $FSLDIR/bin/fslmaths ${T1}_fast_bias -add 1 ${T1}_fast_bias
+    run $FSLDIR/bin/fslmaths ${T1}_fast_totbias -add 1 ${T1}_fast_totbias
     # $FSLDIR/bin/fslmaths ${T1}_fast_totbias -sub 1 -mas ${T1}_initfast2_brain_mask -dilall -add 1 ${T1}_fast_bias  # alternative to fslsmoothfill
-    $FSLDIR/bin/fslmaths ${T1} -div ${T1}_fast_bias ${T1}_biascorr
+    run $FSLDIR/bin/fslmaths ${T1} -div ${T1}_fast_bias ${T1}_biascorr
     
     # Refers to optiBET.sh located in the same folder as the main script
     # $DIR/optiBET.sh ${outputname}.anat/${T1}_biascorr
     date; echo "Performing brain extraction (using optiBET.sh)"
     
-    $DIR/optiBET.sh ${T1}_biascorr
+    run $DIR/optiBET.sh ${T1}_biascorr
 
 else
-    $FSLDIR/bin/fslmaths ${T1} ${T1}_biascorr
+    run $FSLDIR/bin/fslmaths ${T1} ${T1}_biascorr
 fi
 
 #### REGISTRATION AND BRAIN EXTRACTION
@@ -560,7 +560,7 @@ if [ $do_reg = yes ] ; then
     date; echo "Registering to standard space (linear)"
     flirtargs="$flirtargs $nosearch"
     if [ $use_lesionmask = yes ] ; then flirtargs="$flirtargs -inweight lesionmaskinv" ; fi
-    $FSLDIR/bin/flirt -interp spline -dof 12 -in ${T1}_biascorr_optiBET_brain -ref $FSLDIR/data/standard/MNI152_${T1}_2mm_brain -dof 12 -omat ${T1}_to_MNI_lin.mat -out ${T1}_to_MNI_lin $flirtargs
+    run $FSLDIR/bin/flirt -interp spline -dof 12 -in ${T1}_biascorr_optiBET_brain -ref $FSLDIR/data/standard/MNI152_${T1}_2mm_brain -dof 12 -omat ${T1}_to_MNI_lin.mat -out ${T1}_to_MNI_lin $flirtargs
 
     if [ $do_nonlinreg = yes ] ; then
       date; echo "Registering to standard space (non-linear)"
@@ -568,14 +568,14 @@ if [ $do_reg = yes ] ; then
       refmask=MNI152_${T1}_2mm_brain_mask_dil1
       fnirtargs=""
       if [ $use_lesionmask = yes ] ; then fnirtargs="$fnirtargs --inmask=lesionmaskinv" ; fi
-      $FSLDIR/bin/fslmaths $FSLDIR/data/standard/MNI152_${T1}_2mm_brain_mask -fillh -dilF $refmask
-      $FSLDIR/bin/fnirt --in=${T1}_biascorr --ref=$FSLDIR/data/standard/MNI152_${T1}_2mm --fout=${T1}_to_MNI_nonlin_field --jout=${T1}_to_MNI_nonlin_jac --iout=${T1}_to_MNI_nonlin --logout=${T1}_to_MNI_nonlin.txt --cout=${T1}_to_MNI_nonlin_coeff --config=$FSLDIR/etc/flirtsch/${T1}_2_MNI152_2mm.cnf --aff=${T1}_to_MNI_lin.mat --refmask=$refmask $fnirtargs
+      run $FSLDIR/bin/fslmaths $FSLDIR/data/standard/MNI152_${T1}_2mm_brain_mask -fillh -dilF $refmask
+      run $FSLDIR/bin/fnirt --in=${T1}_biascorr --ref=$FSLDIR/data/standard/MNI152_${T1}_2mm --fout=${T1}_to_MNI_nonlin_field --jout=${T1}_to_MNI_nonlin_jac --iout=${T1}_to_MNI_nonlin --logout=${T1}_to_MNI_nonlin.txt --cout=${T1}_to_MNI_nonlin_coeff --config=$FSLDIR/etc/flirtsch/${T1}_2_MNI152_2mm.cnf --aff=${T1}_to_MNI_lin.mat --refmask=$refmask $fnirtargs
 
       date; echo "Performing brain extraction (using FNIRT)"
-      $FSLDIR/bin/invwarp --ref=${T1}_biascorr -w ${T1}_to_MNI_nonlin_coeff -o MNI_to_${T1}_nonlin_field
-      $FSLDIR/bin/applywarp --interp=nn --in=$FSLDIR/data/standard/MNI152_${T1}_2mm_brain_mask --ref=${T1}_biascorr -w MNI_to_${T1}_nonlin_field -o ${T1}_biascorr_brain_mask
-      $FSLDIR/bin/fslmaths ${T1}_biascorr_brain_mask -fillh ${T1}_biascorr_brain_mask
-      $FSLDIR/bin/fslmaths ${T1}_biascorr -mas ${T1}_biascorr_brain_mask ${T1}_biascorr_brain
+      run $FSLDIR/bin/invwarp --ref=${T1}_biascorr -w ${T1}_to_MNI_nonlin_coeff -o MNI_to_${T1}_nonlin_field
+      run $FSLDIR/bin/applywarp --interp=nn --in=$FSLDIR/data/standard/MNI152_${T1}_2mm_brain_mask --ref=${T1}_biascorr -w MNI_to_${T1}_nonlin_field -o ${T1}_biascorr_brain_mask
+      run $FSLDIR/bin/fslmaths ${T1}_biascorr_brain_mask -fillh ${T1}_biascorr_brain_mask
+      run $FSLDIR/bin/fslmaths ${T1}_biascorr -mas ${T1}_biascorr_brain_mask ${T1}_biascorr_brain
     fi
     ## In the future, could check the initial ROI extraction here
   fi
@@ -586,7 +586,7 @@ else
     ## This small cd -/cd is inserted to keep the optiBET.sh located with the rest of the pipeline in the sourcefolder. It is reversed again afterwards.
     # $DIR/optiBET.sh ${outputname}.anat/${T1}_biascorr
     
-    $DIR/optiBET.sh ${T1}_biascorr
+    run $DIR/optiBET.sh ${T1}_biascorr
     
     immv ${T1}_biascorr_optiBET_brain ${T1}_biascorr_brain
     immv ${T1}_biascorr_optiBET_brain_mask ${T1}_biascorr_brain_mask
@@ -600,23 +600,23 @@ fi
 # output: ${T1}_biascorr ${T1}_biascorr_brain (modified) ${T1}_fast* (as normally output by fast) ${T1}_fast_bias (modified)
 if [ $do_seg = yes ] ; then
     date; echo "Performing tissue-type segmentation"
-    $FSLDIR/bin/fslmaths ${T1}_biascorr_brain -mas lesionmaskinv ${T1}_biascorr_maskedbrain
+    run $FSLDIR/bin/fslmaths ${T1}_biascorr_brain -mas lesionmaskinv ${T1}_biascorr_maskedbrain
     echo "Running fast. Fast is slow ; )"
-    $FSLDIR/bin/fast -o ${T1}_fast -l ${smooth} -b -B -t $type --iter=${niter} ${T1}_biascorr_maskedbrain
-    $FSLDIR/bin/immv ${T1}_biascorr ${T1}_biascorr_init
-    $FSLDIR/bin/fslmaths ${T1}_fast_restore ${T1}_biascorr_brain
+    run $FSLDIR/bin/fast -o ${T1}_fast -l ${smooth} -b -B -t $type --iter=${niter} ${T1}_biascorr_maskedbrain
+    run $FSLDIR/bin/immv ${T1}_biascorr ${T1}_biascorr_init
+    run $FSLDIR/bin/fslmaths ${T1}_fast_restore ${T1}_biascorr_brain
     # extrapolate bias field and apply to the whole head image
-    $FSLDIR/bin/fslmaths ${T1}_biascorr_brain_mask -mas lesionmaskinv ${T1}_biascorr_brain_mask2
-    $FSLDIR/bin/fslmaths ${T1}_biascorr_init -div ${T1}_fast_restore -mas ${T1}_biascorr_brain_mask2 ${T1}_fast_totbias
-    $FSLDIR/bin/fslmaths ${T1}_fast_totbias -sub 1 ${T1}_fast_totbias
-    $FSLDIR/bin/fslsmoothfill -i ${T1}_fast_totbias -m ${T1}_biascorr_brain_mask2 -o ${T1}_fast_bias
-    $FSLDIR/bin/fslmaths ${T1}_fast_bias -add 1 ${T1}_fast_bias
-    $FSLDIR/bin/fslmaths ${T1}_fast_totbias -add 1 ${T1}_fast_totbias
+    run $FSLDIR/bin/fslmaths ${T1}_biascorr_brain_mask -mas lesionmaskinv ${T1}_biascorr_brain_mask2
+    run $FSLDIR/bin/fslmaths ${T1}_biascorr_init -div ${T1}_fast_restore -mas ${T1}_biascorr_brain_mask2 ${T1}_fast_totbias
+    run $FSLDIR/bin/fslmaths ${T1}_fast_totbias -sub 1 ${T1}_fast_totbias
+    run $FSLDIR/bin/fslsmoothfill -i ${T1}_fast_totbias -m ${T1}_biascorr_brain_mask2 -o ${T1}_fast_bias
+    run $FSLDIR/bin/fslmaths ${T1}_fast_bias -add 1 ${T1}_fast_bias
+    run $FSLDIR/bin/fslmaths ${T1}_fast_totbias -add 1 ${T1}_fast_totbias
     # $FSLDIR/bin/fslmaths ${T1}_fast_totbias -sub 1 -mas ${T1}_biascorr_brain_mask2 -dilall -add 1 ${T1}_fast_bias # alternative to fslsmoothfill
-    $FSLDIR/bin/fslmaths ${T1}_biascorr_init -div ${T1}_fast_bias ${T1}_biascorr
+    run $FSLDIR/bin/fslmaths ${T1}_biascorr_init -div ${T1}_fast_bias ${T1}_biascorr
     if [ $do_nonlinreg = yes ] ; then
         # regenerate the standard space version with the new bias field correction applied
-	$FSLDIR/bin/applywarp -i ${T1}_biascorr -w ${T1}_to_MNI_nonlin_field -r $FSLDIR/data/standard/MNI152_${T1}_2mm -o ${T1}_to_MNI_nonlin --interp=spline
+	run $FSLDIR/bin/applywarp -i ${T1}_biascorr -w ${T1}_to_MNI_nonlin_field -r $FSLDIR/data/standard/MNI152_${T1}_2mm -o ${T1}_to_MNI_nonlin --interp=spline
    fi
     echo "end fsl_anat tissue segmentation"
 fi
@@ -654,17 +654,17 @@ if [ $do_subcortseg = yes ] ; then
     # Future note, would be nice to use ${T1}_to_MNI_lin.mat to initialise first_flirt
     ffopts=""
     if [ $use_lesionmask = yes ] ; then ffopts="$ffopts -inweight lesionmaskinv" ; fi
-    $FSLDIR/bin/first_flirt ${T1}_biascorr ${T1}_biascorr_to_std_sub $ffopts
+    run $FSLDIR/bin/first_flirt ${T1}_biascorr ${T1}_biascorr_to_std_sub $ffopts
     mkdir first_results
     echo "$FSLDIR/bin/run_first_all $firstreg -i ${T1}_biascorr -o first_results/${T1}_first -a ${T1}_biascorr_to_std_sub.mat" >> $LOGFILE
     FIRSTID=`$FSLDIR/bin/run_first_all $firstreg -i ${T1}_biascorr -o first_results/${T1}_first -a ${T1}_biascorr_to_std_sub.mat`
     echo "$FSLDIR/bin/fsl_sub -T 1 -j $FIRSTID imcp first_results/${T1}_first_all_fast_firstseg.${ext} ${T1}_subcort_seg.${ext}" >> $LOGFILE
-    $FSLDIR/bin/fsl_sub -T 1 -j $FIRSTID imcp first_results/${T1}_first_all_fast_firstseg.${ext} ${T1}_subcort_seg.${ext}
+    run $FSLDIR/bin/fsl_sub -T 1 -j $FIRSTID imcp first_results/${T1}_first_all_fast_firstseg.${ext} ${T1}_subcort_seg.${ext}
 fi
 
 
 #### CLEANUP
 if [ $do_cleanup = yes ] ; then
   date; echo "Cleaning up intermediate files"
-  $FSLDIR/bin/imrm ${T1}_biascorr_bet_mask ${T1}_biascorr_bet ${T1}_biascorr_brain_mask2 ${T1}_biascorr_init ${T1}_biascorr_maskedbrain ${T1}_biascorr_to_std_sub ${T1}_fast_bias_idxmask ${T1}_fast_bias_init ${T1}_fast_bias_vol2 ${T1}_fast_bias_vol32 ${T1}_fast_totbias ${T1}_hpf* ${T1}_initfast* ${T1}_s20 ${T1}_initmask_s20
+  run $FSLDIR/bin/imrm ${T1}_biascorr_bet_mask ${T1}_biascorr_bet ${T1}_biascorr_brain_mask2 ${T1}_biascorr_init ${T1}_biascorr_maskedbrain ${T1}_biascorr_to_std_sub ${T1}_fast_bias_idxmask ${T1}_fast_bias_init ${T1}_fast_bias_vol2 ${T1}_fast_bias_vol32 ${T1}_fast_totbias ${T1}_hpf* ${T1}_initfast* ${T1}_s20 ${T1}_initmask_s20
 fi
