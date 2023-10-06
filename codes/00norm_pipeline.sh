@@ -101,30 +101,26 @@ for D in *; do
       # Converting to array for testing (there probably is a better solution, but this works)
       lesiontest=($lesionmask)
       
-      lesionExtra () {
-        # Checking if there is more than one file matching the lesionpattern
-        if [[ ${#lesiontest[@]} > 1 ]]; then
-          echo "### ERROR"
-          echo " "
-          echo "### ${#lesiontest[@]} files matches the lesion mask pattern in $PWD/$D"
-          echo "### Please have a look in that folder, to only include 1 lesion mask file"
-          echo "### After you reorder the files, you can rerun the script"
-          echo " "
-          echo "### The files are the following:"
-          echo " "
-          echo "$lesionmask"
-          echo " "
-          exit 0;
-        fi
-      }
+      # Checking if there is more than one file matching the lesionpattern
+      if [[ ${#lesiontest[@]} > 1 ]]; then
+        echo "### ERROR"
+        echo " "
+        echo "### ${#lesiontest[@]} files matches the lesion mask pattern in $PWD/$D"
+        echo "### Please have a look in that folder, to only include 1 lesion mask file"
+        echo "### After you reorder the files, you can rerun the script"
+        echo " "
+        echo "### The files are the following:"
+        echo " "
+        echo "$lesionmask"
+        echo " "
+        exit 0;
+      fi
       
       # Extracting file stem to supply to child scripts
       fileStem=`remove_ext ${t1w}`
       
       # Checking if .anat folder has already been created in a previous run, assuming the data has then been processed
       if [ ! -d "${fileStem}.anat" ]; then
-        
-        lesionExtra
         
         # Printing the lesion mask file name for sanity checking
         if [[ -n "$lesionmask" ]]; then
@@ -165,7 +161,6 @@ for D in *; do
         
         # Normalised files are not present, and normalisation/registration can continue
         
-        
         if [ $registration = ants ]; then
         
           ## Notes on ANTS normalisation
@@ -183,10 +178,8 @@ for D in *; do
           
             date; echo "--- Now to ANTs normalization to $resolution space ---"
             
-            lesionExtra
-            
             # The script assumes the location of 
-            $DIR/ant_reg3_bbl.sh $t1w $resolution
+            sh $DIR/ant_reg3_bbl.sh $t1w $resolution
           fi
           
         else
@@ -202,8 +195,6 @@ for D in *; do
           else
           
             date; echo "--- Now to FSL normalization to $resolution space ---"
-            
-            lesionExtra
             
             $DIR/fsl_norm_bbl.sh $t1w ${resolution} ${fileStem}.anat/lesionmask
             

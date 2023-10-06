@@ -14,7 +14,7 @@ You need to have the following programs installed:
 
 -   You may want to use the powerful `r glossary("ANTs")` package (or the underlying [`ANTsR` package](https://github.com/ANTsX/ANTsR)) for `r glossary("registration")`. The included script, to is provided by [Dr. Dianne Patterson, PhD](https://neuroimaging-core-docs.readthedocs.io/en/latest/pages/ants_anat_normalization-lesion.html).
 
-## Let's get to it
+## Let's get to it {#sec-gettoit}
 
 ::: callout-warning
 ## Keep a backup
