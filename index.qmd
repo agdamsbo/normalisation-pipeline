@@ -31,6 +31,11 @@ affiliations:
     url: https://brain.rehab.med.ubc.ca/
 ---
 
+```{r}
+#| echo: false
+source("glossary_setup.R")
+```
+
 # Preface {.unnumbered}
 
 The book was intended as documentation on a suggested pipeline for normalising brain and lesion masks from chronic stroke T1 weighted imaging. To make it a bid more widely useful, the pipeline documented here will register T1 weighted images to either 1 or 2 mm MNI standard space and include a lesion mask in that process, if any is present.
@@ -39,18 +44,22 @@ The pipeline was comprised as part of my exchange stay at the Brain Behaviour La
 
 ## Motivation
 
-The reason for creating this tool is to use 1mm MNI normalised lesion masks for the [NeMo tool](https://kuceyeski-wcm-web.s3.us-east-1.amazonaws.com/upload.html).
+The reason for creating this tool is to use 1mm `r glossary("MNI")` normalised (`r glossary("registration")`) lesion masks for the [`r glossary("NeMo")` tool](https://kuceyeski-wcm-web.s3.us-east-1.amazonaws.com/upload.html).
 
-Most of the hard working scripts in this pipeline are based on the work by [Dr. Dianne Patterson, PhD](https://neuroimaging-core-docs.readthedocs.io/en/latest/index.html), which in turn is also based on others work. I have tried my best at modifying the original scripts as little as possible for clarity, and instead created a few new scripts to work as wrappers.
+Most of the hard working scripts in this `r glossary("pipeline")` are based on the work by [Dr. Dianne Patterson, PhD](https://neuroimaging-core-docs.readthedocs.io/en/latest/index.html), which in turn is also based on others work. I have tried my best at modifying the original scripts as little as possible for clarity, and instead created a few new scripts to work as wrappers.
 
-And then, the frustration. I found that documentation that is easy to understand is highly lacking in the field (or I just didn't manage to find it). Also, the documentation on fsl-functions is difficult to always follow.As an example, [this is the best overview of `fslmaths -help`](https://mandymejia.com/fsl-maths-commands/). And please notice, that to get help for `fslmaths`or `flirt`, type the command followed by `-help`. If you want the same from `fnirt`, then type `-h` or `--help` as is the case for most other command-line programs.
+And then, the frustration. I found that documentation that is easy to understand is highly lacking in the field (or I just didn't manage to find it). Also, the documentation on `r glossary("fsl")`-functions is difficult to always follow. As an example, [this is the best overview of `fslmaths -help`](https://mandymejia.com/fsl-maths-commands/). And please notice, that to get help for `fslmaths`or `flirt`, type the command followed by `-help`. If you want the same from `fnirt`, then type `-h` or `--help` as is the case for most other command-line programs.
 
-I have tried to lower the bar to get started working on MRI registration. Feedback is [very welcome on GitHub](https://github.com/agdamsbo/normalisation-pipeline/discussions).
+I have tried to lower the bar to get started working on `r glossary("MRI")` `r glossary("registration")`. Feedback is [very welcome on GitHub](https://github.com/agdamsbo/normalisation-pipeline/discussions).
 
 ## License
 
-This documentation is shared under the AGPL-v3 license if nothing else is explicitly stated. The source can be found [here](https://github.com/agdamsbo/normalisation-pipeline/) and contributions are very welcome in the discussion section on Github, through issues or pull requests.
+This documentation is shared under the [AGPL-v3 license](LICENSE.md) if nothing else is explicitly stated. The source can be found [here](https://github.com/agdamsbo/normalisation-pipeline/) and contributions are very welcome in the discussion section on Github, through issues or pull requests.
+
+
+## Glossary
 
 ```{r}
-source("glossary_setup.R")
+#| echo: false
+glossary::glossary_table()
 ```
