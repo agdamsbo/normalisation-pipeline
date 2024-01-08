@@ -321,13 +321,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="masking" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="masking"><span class="header-section-number">3.3</span> Masking</h2>
-<p>In ITK-SNAP, you can correct the brain mask manually. Overall, open the “SubNN_T1w.nii.gz” with <kbd data-windows="Control-G" data-mac="Command-G" data-linux="Control-G"></kbd> and the “SubNN_T1w_brain_mask.nii.gz” with <kbd data-windows="Control-O" data-mac="Command-O" data-linux="Control-O"></kbd>. You can manually edit the brain mask by using the interpolate tool to apply changes to all layers in all three planes. Please have a look at <a href="https://youtu.be/watch?v=ZVmINdWk5R4">this demonstration of the tool</a>. Make sure that changes are made in a different label to the main label of the brain mask segmentation.</p>
+<p>In ITK-SNAP, you can correct the brain mask manually. Overall, open the “SubNN_T1w.nii.gz” with <kbd data-mac="Command-G" data-linux="Control-G" data-windows="Control-G"></kbd> and the “SubNN_T1w_brain_mask.nii.gz” with <kbd data-mac="Command-O" data-linux="Control-O" data-windows="Control-O"></kbd>. You can manually edit the brain mask by using the interpolate tool to apply changes to all layers in all three planes. Please have a look at <a href="https://youtu.be/watch?v=ZVmINdWk5R4">this demonstration of the tool</a>. Make sure that changes are made in a different label to the main label of the brain mask segmentation.</p>
 <p>Here, I’ll just go through an order of work for the two different cases:</p>
 <section id="too-little" class="level3" data-number="3.3.1">
 <h3 data-number="3.3.1" class="anchored" data-anchor-id="too-little"><span class="header-section-number">3.3.1</span> Too little</h3>
 <p>This is simple. You just add the missing:</p>
 <ol type="1">
-<li>Using the drawing tool, include the missing parts of the brain/infarct in the new label. You can get by by just drawing on each 5-7 layers in the axial plane. Then do interpolate along the axial axis. Check that you are satisfied. If not, then <kbd data-windows="Control-Z" data-mac="Command-Z" data-linux="Control-Z"></kbd>. Add a few other layers of manual drawing. Interpolate again. When done, save as a new file.</li>
+<li>Using the drawing tool, include the missing parts of the brain/infarct in the new label. You can get by by just drawing on each 5-7 layers in the axial plane. Then do interpolate along the axial axis. Check that you are satisfied. If not, then <kbd data-mac="Command-Z" data-linux="Control-Z" data-windows="Control-Z"></kbd>. Add a few other layers of manual drawing. Interpolate again. When done, save as a new file.</li>
 </ol>
 </section>
 <section id="too-much" class="level3" data-number="3.3.2">
