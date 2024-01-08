@@ -1,12 +1,12 @@
 project:
   type: book
-  output-dir: docs/
 
 book:
   title: "Normalisation pipeline"
   author: "Andreas G. Damsbo"
   favicon: "/images/favicon.png"
   date: last-modified
+  license: LICENSE.md
   search: true
   repo-url: https://github.com/agdamsbo/normalisation-pipeline/
   repo-actions: [edit]
@@ -25,6 +25,8 @@ book:
   appendices: 
     # - references.qmd
     - NEWS.md
+    - session.qmd
+    - LICENSE.md
 
 citation:
   url: https://agdamsbo.github.io/normalisation-pipeline/
@@ -33,7 +35,7 @@ bibliography: references.bib
 
 execute:
   echo: true
-  freeze: auto
+  freeze: false
 
 format:
   html:
