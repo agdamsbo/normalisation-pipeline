@@ -61,6 +61,12 @@ I very much prefer writing function to do the data handling, but I just have to 
 
 ## Visualisation
 
+::: callout-important
+## Please note that the NeMo-repository is shared without a license
+
+This means it is technically not allowed to modify or redistribute the code. Please refer to {#contents}.
+:::
+
 We also want those nice glass brains. These following R scripts are all simple wrappers for the scripts from the NeMo tool, which uses the `nibabel` Python package for plotting. All the examples below are created based on a small sample of two subjects and the [Yeo17](https://pubmed.ncbi.nlm.nih.gov/21653723/) atlas which is also [shared in the NeMo tool source](https://github.com/kjamison/nemo/tree/master/website/atlases).
 
 First we do the simpel voxel based heatmap.
@@ -76,8 +82,7 @@ glass_brain(
 )
 ```
 
-![Averaged voxel based chacovol glassbrain plot](images/glass_chacovol.png){fig-align="center"}
-Next we can do the parcellation or atlas based chacovol plotting:
+![Averaged voxel based chacovol glassbrain plot](images/glass_chacovol.png){fig-align="center"} Next we can do the parcellation or atlas based chacovol plotting:
 
 ```{r}
 #| echo: true
@@ -131,4 +136,3 @@ graph_brain(
 #| eval: true
 glossary_table()
 ```
-

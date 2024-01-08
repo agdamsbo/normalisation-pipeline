@@ -1,4 +1,4 @@
-# Contents
+# Contents {#contents}
 
 ```{r}
 #| echo: false
@@ -11,11 +11,13 @@ The `r glossary("pipeline")` provides a set of handy tools listed below, which I
 
 -   A few other `r glossary("Bash")`-scripts to register brain and lesion mask after manual correction of brain mask (no, even using `r glossary("optiBET")` is not perfect), and to do other things.
 
--   A few *`r glossary("R")`*-scripts to organise files and to package lesion masks to supply to the `r glossary("NeMo")` tool in @sec-nemo. 
+-   A few *`r glossary("R")`*-scripts to organise files and to package lesion masks to supply to the `r glossary("NeMo")` tool in @sec-nemo.
 
 -   In a separate folder (`nemo/`) I've included a few scripts to collect data from the `r glossary("NeMo")`-output and do basic visualisation based on the `r glossary("NeMo")` output data.
 
--   Finally, three `r glossary("Python")` scripts from the `r glossary("NeMo")`-[repository](https://github.com/kjamison/nemo): `nemo_save_average_glassbrain.py`, `nemo_save_average_graphbrain.py` and `nemo_save_average_matrix_figure.py`. These are used for data visualisation in the included pipeline use case example in @sec-nemo.
+-   Finally, three `r glossary("Python")` scripts from the `r glossary("NeMo")`-[repository](https://github.com/kjamison/nemo): `nemo_save_average_glassbrain.py`, `nemo_save_average_graphbrain.py` and `nemo_save_average_matrix_figure.py`. These are used for data visualisation in the included pipeline use case example in @sec-nemo. The NeMo-project project, however is shared without a license. The files can be downloaded from the [NeMo-repository](https://github.com/kjamison/nemo) or directly with the following lines of code:
+
+    ´´´ {r} download.file("https://raw.githubusercontent.com/kjamison/nemo/master/nemo_save_average_glassbrain.py", here::here("nemo_save_average_glassbrain.py")) download.file("https://raw.githubusercontent.com/kjamison/nemo/master/nemo_save_average_graphbrain.py", here::here("nemo_save_average_graphbrain.py")) download.file("https://raw.githubusercontent.com/kjamison/nemo/master/nemo_save_average_matrix_figure.py", here::here("nemo_save_average_matrix_figure.py")) ´´´
 
 ## Glossary
 
