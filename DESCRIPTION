@@ -1,0 +1,18 @@
+Package: normalisation-pipeline
+Title: Data processing for brain and lesion normalisation
+Version: 2024.1.1
+Authors@R: 
+    person("Andreas Gammelgaard", "Damsbo", email = "agdamsbo@clin.au.dk", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-7559-1154")), person("Christina", "Rubino", role = "ctb")
+Description: Data processing for brain and lesion normalisation.
+License: AGPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    glossary,
+    here,
+    rmarkdown,
+    stRoke,
+    styler,
+    usethis
