@@ -1,0 +1,16 @@
+---
+title: Session info
+---
+
+```{r}
+sessionInfo()
+```
+
+## Libraries used in the project
+
+These are the projects listed with `renv::dependencies()`
+
+```{r}
+renv::dependencies()$Package |> unique()
+```
+
