@@ -13,6 +13,8 @@ Imports:
     glossary,
     here,
     rmarkdown,
-    stRoke,
-    styler,
     usethis
+Suggests:
+    pak,
+    stRoke,
+    styler
