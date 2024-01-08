@@ -3,9 +3,12 @@
 ## 2024.1.1
 
 Changed versioning scheme.
+
 As the NeMo-tool is published without a license, the package or parts of it cannot be redistributed, and should instead be downloaded directly from the [NeMo repository](https://github.com/kjamison/nemo). This pipeline-project is shared under the FOSS-license A-GPL-v3.
+
 This version will be the first released on Zenodo and have a DOI.
-DESCRIPTION file added with and `renv` initiated for easier cloning of the project.
+
+DESCRIPTION file added for easier cloning of the project. Initialise `renv` with `renv::init(bare=TRUE)`.
 
 ## 2023.10.06
 
