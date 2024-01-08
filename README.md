@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/687180387.svg)](https://zenodo.org/doi/10.5281/zenodo.10469422)
+
+
 # Data processing for brain and lesion normalisation
 
 This pipeline was comprised as part of my exchange stay at the Brain Behavior Lab at UBC, Vancouver, Canada. It is my hope that the notes and script may be of help to others, myself being a new learner to FSL and everything around it.
