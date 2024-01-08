@@ -1,5 +1,4 @@
-
 library(glossary)
-glossary_path("glossary.yml")
-glossary_popup("hover")
-glossary_reset()
+glossary::glossary_path(path = "glossary.yml")
+glossary::glossary_popup(popup = "hover")
+glossary::glossary_reset()

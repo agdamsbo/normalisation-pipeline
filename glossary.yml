@@ -1,27 +1,29 @@
 registration: |
   I this context, registration denotes to art of registrering to normal space. In this case to the MNI space. Think of it as normalising data.
 fsleyes: |
-  Thes picture viewing tool from the fsl-package. For more, [click here](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes).
+  Thes picture viewing tool from the fsl-package. https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes
 pipeline: |
   A set of tools working together as chain links being dependent on one-another. Just a fancy term for "ordered collection"
 Bash: |
   Short version: The language of the terminal console in Windows, Linux and MacOS.
 optiBET: |
-  A four step optimization of the fsl BET tool from [the Monti lab at UCLA](https://montilab.psych.ucla.edu/fmri-wiki/optibet/). [Read more](https://montilab.psych.ucla.edu/fmri-wiki/optibet/).
+  A four step optimization of the fsl BET tool from the Monti lab at UCLA. https://montilab.psych.ucla.edu/fmri-wiki/optibet/
 NeMo: |
-  Network Modification tool. [Source](https://github.com/kjamison/nemo).
+  Network Modification tool. https://github.com/kjamison/nemo
 regex: |
   Short of Regular Expression. Provides a very powerful character search interface. There are various resources online for [learning](https://www.sitepoint.com/learn-regex/) and [validating](https://regex101.com/) your regex search pattern. 
 connectome: |
   Term used to denote the collection of connections in the brain.
 BIDS: |
-  Brain Imaging Data Structure. [Source](https://bids-standard.github.io/bids-starter-kit/index.html)
+  Brain Imaging Data Structure. https://bids-standard.github.io/bids-starter-kit/index.html
 ANTs: |
-  Advanced Normalization Tools. [Source](https://github.com/ANTsX/ANTs)
+  Advanced Normalization Tools. https://github.com/ANTsX/ANTs
 R: |
-  Free and open source software environment for statistical computing and graphics. [Source](https://www.r-project.org/)
+  Free and open source software environment for statistical computing and graphics. https://www.r-project.org/
 MNI: |
-  Montreal Neurological Institute. [Source](https://nist.mni.mcgill.ca/atlases/)
+  Montreal Neurological Institute. https://nist.mni.mcgill.ca/atlases/
 Python: |
-  A snake, or in this case refers to the free and open source programming language Python. [Source](https://www.python.org/)
+  A snake, or in this case refers to the free and open source programming language Python. https://www.python.org/
+MRI: |
+  Magnetic Resonance Imaging
 
