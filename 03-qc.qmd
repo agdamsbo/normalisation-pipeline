@@ -106,5 +106,6 @@ sh multi-punch.sh /sourcefolder "*_lesion.nii.gz"
 ## Glossary
 
 ```{r}
-glossary_table()
+#| echo: false
+glossary::glossary_table()
 ```

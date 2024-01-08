@@ -133,6 +133,5 @@ graph_brain(
 
 ```{r}
 #| echo: false
-#| eval: true
-glossary_table()
+glossary::glossary_table()
 ```

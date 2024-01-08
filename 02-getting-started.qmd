@@ -107,5 +107,5 @@ ${normalisation-pipeline}
 
 ```{r}
 #| echo: false
-glossary_table()
+glossary::glossary_table()
 ```

@@ -26,5 +26,6 @@ Then files were uploaded and sent to the [NeMo tool server]().
 ## Glossary
 
 ```{r}
-glossary_table()
+#| echo: false
+glossary::glossary_table()
 ```

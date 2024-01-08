@@ -26,5 +26,6 @@ The online instance of the tool offers to freely process lesion masks in batches
 ## Glossary
 
 ```{r}
-glossary_table()
+#| echo: false
+glossary::glossary_table()
 ```

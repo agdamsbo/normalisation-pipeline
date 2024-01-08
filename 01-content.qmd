@@ -17,11 +17,16 @@ The `r glossary("pipeline")` provides a set of handy tools listed below, which I
 
 -   Finally, three `r glossary("Python")` scripts from the `r glossary("NeMo")`-[repository](https://github.com/kjamison/nemo): `nemo_save_average_glassbrain.py`, `nemo_save_average_graphbrain.py` and `nemo_save_average_matrix_figure.py`. These are used for data visualisation in the included pipeline use case example in @sec-nemo. The NeMo-project project, however is shared without a license. The files can be downloaded from the [NeMo-repository](https://github.com/kjamison/nemo) or directly with the following lines of code:
 
-    ´´´ {r} download.file("https://raw.githubusercontent.com/kjamison/nemo/master/nemo_save_average_glassbrain.py", here::here("nemo_save_average_glassbrain.py")) download.file("https://raw.githubusercontent.com/kjamison/nemo/master/nemo_save_average_graphbrain.py", here::here("nemo_save_average_graphbrain.py")) download.file("https://raw.githubusercontent.com/kjamison/nemo/master/nemo_save_average_matrix_figure.py", here::here("nemo_save_average_matrix_figure.py")) ´´´
+    ```{r}
+    #| eval: false
+    download.file("https://raw.githubusercontent.com/kjamison/nemo/master/nemo_save_average_glassbrain.py", here::here("nemo_save_average_glassbrain.py"))
+    download.file("https://raw.githubusercontent.com/kjamison/nemo/master/nemo_save_average_graphbrain.py", here::here("nemo_save_average_graphbrain.py"))
+    download.file("https://raw.githubusercontent.com/kjamison/nemo/master/nemo_save_average_matrix_figure.py", here::here("nemo_save_average_matrix_figure.py"))
+    ```
 
 ## Glossary
 
 ```{r}
 #| echo: false
-glossary_table()
+glossary::glossary_table()
 ```
