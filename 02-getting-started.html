@@ -297,7 +297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL">fsl</a> as well as</p></li>
 <li><p><a href="https://www.r-project.org/"><em>R</em></a> and <a href="https://posit.co/downloads/">RStudio (or similar)</a> installed.</p></li>
 <li><p>I also highly recommend the package <a href="http://itksnap.org/pmwiki/pmwiki.php?n=Main.HomePage">ITK-SNAP</a>, which can be used for some (semi-)manual mask modifications.</p></li>
-<li><p>You may want to use the powerful <a class="glossary" title="Advanced Normalization Tools. Source">ANTs</a> package (or the underlying <a href="https://github.com/ANTsX/ANTsR"><code>ANTsR</code> package</a>) for <a class="glossary" title="I this context, registration denotes to art of registrering to normal space. In this case to the MNI space. Think of it as normalising data.">registration</a>. The included script, to is provided by <a href="https://neuroimaging-core-docs.readthedocs.io/en/latest/pages/ants_anat_normalization-lesion.html">Dr.&nbsp;Dianne Patterson, PhD</a>.</p></li>
+<li><p>You may want to use the powerful <a class="glossary" title="Advanced Normalization Tools. https://github.com/ANTsX/ANTs">ANTs</a> package (or the underlying <a href="https://github.com/ANTsX/ANTsR"><code>ANTsR</code> package</a>) for <a class="glossary" title="I this context, registration denotes to art of registrering to normal space. In this case to the MNI space. Think of it as normalising data.">registration</a>. The included script, to is provided by <a href="https://neuroimaging-core-docs.readthedocs.io/en/latest/pages/ants_anat_normalization-lesion.html">Dr.&nbsp;Dianne Patterson, PhD</a>.</p></li>
 </ul>
 <section id="sec-gettoit" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="sec-gettoit"><span class="header-section-number">2.1</span> Let’s get to it</h2>
@@ -333,7 +333,7 @@ Keep a backup
 <ol type="1">
 <li><p>Download or clone the repository to your computer and extract the folder if necessary. Move the contents of the <code>codes</code> folder to whereever you find appropriate (or just leave them for now). This is now the “codes folder” and will be referenced as <code>/codes/folder/</code> in the script examples. Edit this to run on your computer.</p>
 <p>Now, open a terminal window and navigate to in the parent directory of your data folder, which we will now refer to as the “root directory”.</p>
-<p>This pipeline assumes, that your files are organised in the following way. This is not completely according to the <a class="glossary" title="Brain Imaging Data Structure. Source">BIDS</a>-format, but that might be coming in the future. For now, this is the way:</p>
+<p>This pipeline assumes, that your files are organised in the following way. This is not completely according to the <a class="glossary" title="Brain Imaging Data Structure. https://bids-standard.github.io/bids-starter-kit/index.html">BIDS</a>-format, but that might be coming in the future. For now, this is the way:</p>
 <pre><code>${ROOT}
 ├── sub01
     ├── sub01_T1w.nii.gz (T1 weighted base image)
@@ -346,7 +346,7 @@ Keep a backup
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> file-prep.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now the files and folders should be structured as expected.</p></li>
-<li><p><em>Optional</em>: If you want to do <a class="glossary" title="I this context, registration denotes to art of registrering to normal space. In this case to the MNI space. Think of it as normalising data.">registration</a> to 1mm MNI space, you need to add a new config file to <a class="glossary" title="Thes picture viewing tool from the fsl-package. For more, click here.">fsl</a>. If not, skip ahead. The config file is the <code>.cnf</code> file in your codes folder, and it can be copied to the correct location using the following command:</p>
+<li><p><em>Optional</em>: If you want to do <a class="glossary" title="I this context, registration denotes to art of registrering to normal space. In this case to the MNI space. Think of it as normalising data.">registration</a> to 1mm MNI space, you need to add a new config file to <a class="glossary" title="Thes picture viewing tool from the fsl-package. https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes">fsl</a>. If not, skip ahead. The config file is the <code>.cnf</code> file in your codes folder, and it can be copied to the correct location using the following command:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">imcp</span> /codes/folder/T1_2_MNI152_1mm.cnf <span class="va">$FSLDIR</span>/etc/flirtsch/T1_2_MNI152_1mm.cnf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -373,15 +373,15 @@ Keep a backup
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">ANTs</td>
-<td style="text-align: left;">Advanced Normalization Tools. [Source](https://github.com/ANTsX/ANTs)</td>
+<td style="text-align: left;">Advanced Normalization Tools. https://github.com/ANTsX/ANTs</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">BIDS</td>
-<td style="text-align: left;">Brain Imaging Data Structure. [Source](https://bids-standard.github.io/bids-starter-kit/index.html)</td>
+<td style="text-align: left;">Brain Imaging Data Structure. https://bids-standard.github.io/bids-starter-kit/index.html</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">fsleyes</td>
-<td style="text-align: left;">Thes picture viewing tool from the fsl-package. For more, [click here](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes).</td>
+<td style="text-align: left;">Thes picture viewing tool from the fsl-package. https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">registration</td>

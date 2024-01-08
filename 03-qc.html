@@ -315,19 +315,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Do not skip this step. Take a good look at the cropping, as the algorithm might have cropped out part of cerebellum (typically the issue, if any).</p>
 <ol type="1">
 <li><p>Delete all the output-files (remembering that the original files were preserved with “_orig” suffix) and renaming the original files removing the suffix.</p></li>
-<li><p>Open the original T1 image and lesion mask in <a class="glossary" title="Thes picture viewing tool from the fsl-package. For more, click here.">fsleyes</a>, and manually crop the two with the same mask when cropping, you can save the crop mask from the T1 and load it for the lesion mask). If the two files are not cropped to the same dimensions, they won’t align, and you’ll be in trouble.</p></li>
+<li><p>Open the original T1 image and lesion mask in <a class="glossary" title="Thes picture viewing tool from the fsl-package. https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes">fsleyes</a>, and manually crop the two with the same mask when cropping, you can save the crop mask from the T1 and load it for the lesion mask). If the two files are not cropped to the same dimensions, they won’t align, and you’ll be in trouble.</p></li>
 <li><p>After cropping, run the <code>00nemo_prep_pipeline.sh</code> script again. It will only run in folders with the *.anat folder not present.</p></li>
 </ol>
 </section>
 <section id="masking" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="masking"><span class="header-section-number">3.3</span> Masking</h2>
-<p>In ITK-SNAP, you can correct the brain mask manually. Overall, open the “SubNN_T1w.nii.gz” with <kbd data-linux="Control-G" data-windows="Control-G" data-mac="Command-G"></kbd> and the “SubNN_T1w_brain_mask.nii.gz” with <kbd data-linux="Control-O" data-windows="Control-O" data-mac="Command-O"></kbd>. You can manually edit the brain mask by using the interpolate tool to apply changes to all layers in all three planes. Please have a look at <a href="https://youtu.be/watch?v=ZVmINdWk5R4">this demonstration of the tool</a>. Make sure that changes are made in a different label to the main label of the brain mask segmentation.</p>
+<p>In ITK-SNAP, you can correct the brain mask manually. Overall, open the “SubNN_T1w.nii.gz” with <kbd data-windows="Control-G" data-mac="Command-G" data-linux="Control-G"></kbd> and the “SubNN_T1w_brain_mask.nii.gz” with <kbd data-windows="Control-O" data-mac="Command-O" data-linux="Control-O"></kbd>. You can manually edit the brain mask by using the interpolate tool to apply changes to all layers in all three planes. Please have a look at <a href="https://youtu.be/watch?v=ZVmINdWk5R4">this demonstration of the tool</a>. Make sure that changes are made in a different label to the main label of the brain mask segmentation.</p>
 <p>Here, I’ll just go through an order of work for the two different cases:</p>
 <section id="too-little" class="level3" data-number="3.3.1">
 <h3 data-number="3.3.1" class="anchored" data-anchor-id="too-little"><span class="header-section-number">3.3.1</span> Too little</h3>
 <p>This is simple. You just add the missing:</p>
 <ol type="1">
-<li>Using the drawing tool, include the missing parts of the brain/infarct in the new label. You can get by by just drawing on each 5-7 layers in the axial plane. Then do interpolate along the axial axis. Check that you are satisfied. If not, then <kbd data-linux="Control-Z" data-windows="Control-Z" data-mac="Command-Z"></kbd>. Add a few other layers of manual drawing. Interpolate again. When done, save as a new file.</li>
+<li>Using the drawing tool, include the missing parts of the brain/infarct in the new label. You can get by by just drawing on each 5-7 layers in the axial plane. Then do interpolate along the axial axis. Check that you are satisfied. If not, then <kbd data-windows="Control-Z" data-mac="Command-Z" data-linux="Control-Z"></kbd>. Add a few other layers of manual drawing. Interpolate again. When done, save as a new file.</li>
 </ol>
 </section>
 <section id="too-much" class="level3" data-number="3.3.2">
@@ -378,7 +378,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="glossary" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="glossary"><span class="header-section-number">3.5</span> Glossary</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glossary_table</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -390,7 +389,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">fsleyes</td>
-<td style="text-align: left;">Thes picture viewing tool from the fsl-package. For more, [click here](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes).</td>
+<td style="text-align: left;">Thes picture viewing tool from the fsl-package. https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">regex</td>

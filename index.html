@@ -23,40 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -98,6 +64,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 </head>
@@ -235,6 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
   <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary">Glossary</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/agdamsbo/normalisation-pipeline/edit/main/index.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
@@ -301,16 +271,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The pipeline was comprised as part of my exchange stay at the Brain Behaviour Lab at UBC, Vancouver, Canada during August-October 2023. It is my hope that the notes and scripts may be of help to others, myself being a new learner to FSL and everything around it.</p>
 <section id="motivation" class="level2">
 <h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
-<p>The reason for creating this tool is to use 1mm MNI normalised lesion masks for the <a href="https://kuceyeski-wcm-web.s3.us-east-1.amazonaws.com/upload.html">NeMo tool</a>.</p>
-<p>Most of the hard working scripts in this pipeline are based on the work by <a href="https://neuroimaging-core-docs.readthedocs.io/en/latest/index.html">Dr.&nbsp;Dianne Patterson, PhD</a>, which in turn is also based on others work. I have tried my best at modifying the original scripts as little as possible for clarity, and instead created a few new scripts to work as wrappers.</p>
-<p>And then, the frustration. I found that documentation that is easy to understand is highly lacking in the field (or I just didn’t manage to find it). Also, the documentation on fsl-functions is difficult to always follow.As an example, <a href="https://mandymejia.com/fsl-maths-commands/">this is the best overview of <code>fslmaths -help</code></a>. And please notice, that to get help for <code>fslmaths</code>or <code>flirt</code>, type the command followed by <code>-help</code>. If you want the same from <code>fnirt</code>, then type <code>-h</code> or <code>--help</code> as is the case for most other command-line programs.</p>
-<p>I have tried to lower the bar to get started working on MRI registration. Feedback is <a href="https://github.com/agdamsbo/normalisation-pipeline/discussions">very welcome on GitHub</a>.</p>
+<p>The reason for creating this tool is to use 1mm <a class="glossary" title="Montreal Neurological Institute. https://nist.mni.mcgill.ca/atlases/">MNI</a> normalised (<a class="glossary" title="I this context, registration denotes to art of registrering to normal space. In this case to the MNI space. Think of it as normalising data.">registration</a>) lesion masks for the <a href="https://kuceyeski-wcm-web.s3.us-east-1.amazonaws.com/upload.html"></a><a class="glossary" title="Network Modification tool. https://github.com/kjamison/nemo">NeMo</a> tool.</p>
+<p>Most of the hard working scripts in this <a class="glossary" title="A set of tools working together as chain links being dependent on one-another. Just a fancy term for “ordered collection”">pipeline</a> are based on the work by <a href="https://neuroimaging-core-docs.readthedocs.io/en/latest/index.html">Dr.&nbsp;Dianne Patterson, PhD</a>, which in turn is also based on others work. I have tried my best at modifying the original scripts as little as possible for clarity, and instead created a few new scripts to work as wrappers.</p>
+<p>And then, the frustration. I found that documentation that is easy to understand is highly lacking in the field (or I just didn’t manage to find it). Also, the documentation on <a class="glossary" title="Thes picture viewing tool from the fsl-package. https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes">fsl</a>-functions is difficult to always follow. As an example, <a href="https://mandymejia.com/fsl-maths-commands/">this is the best overview of <code>fslmaths -help</code></a>. And please notice, that to get help for <code>fslmaths</code>or <code>flirt</code>, type the command followed by <code>-help</code>. If you want the same from <code>fnirt</code>, then type <code>-h</code> or <code>--help</code> as is the case for most other command-line programs.</p>
+<p>I have tried to lower the bar to get started working on <a class="glossary" title="Magnetic Resonance Imaging">MRI</a> <a class="glossary" title="I this context, registration denotes to art of registrering to normal space. In this case to the MNI space. Think of it as normalising data.">registration</a>. Feedback is <a href="https://github.com/agdamsbo/normalisation-pipeline/discussions">very welcome on GitHub</a>.</p>
 </section>
 <section id="license" class="level2">
 <h2 class="anchored" data-anchor-id="license">License</h2>
-<p>This documentation is shared under the AGPL-v3 license if nothing else is explicitly stated. The source can be found <a href="https://github.com/agdamsbo/normalisation-pipeline/">here</a> and contributions are very welcome in the discussion section on Github, through issues or pull requests.</p>
+<p>This documentation is shared under the <a href="./LICENSE.html">AGPL-v3 license</a> if nothing else is explicitly stated. The source can be found <a href="https://github.com/agdamsbo/normalisation-pipeline/">here</a> and contributions are very welcome in the discussion section on Github, through issues or pull requests.</p>
+</section>
+<section id="glossary" class="level2">
+<h2 class="anchored" data-anchor-id="glossary">Glossary</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"glossary_setup.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">term</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">fsleyes</td>
+<td style="text-align: left;">Thes picture viewing tool from the fsl-package. https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MNI</td>
+<td style="text-align: left;">Montreal Neurological Institute. https://nist.mni.mcgill.ca/atlases/</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MRI</td>
+<td style="text-align: left;">Magnetic Resonance Imaging</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NeMo</td>
+<td style="text-align: left;">Network Modification tool. https://github.com/kjamison/nemo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pipeline</td>
+<td style="text-align: left;">A set of tools working together as chain links being dependent on one-another. Just a fancy term for "ordered collection"</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">registration</td>
+<td style="text-align: left;">I this context, registration denotes to art of registrering to normal space. In this case to the MNI space. Think of it as normalising data.</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
 </div>
 
 

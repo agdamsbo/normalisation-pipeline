@@ -11,21 +11,28 @@
     "href": "index.html#motivation",
     "title": "Normalisation pipeline",
     "section": "Motivation",
-    "text": "Motivation\nThe reason for creating this tool is to use 1mm MNI normalised lesion masks for the NeMo tool.\nMost of the hard working scripts in this pipeline are based on the work by Dr. Dianne Patterson, PhD, which in turn is also based on others work. I have tried my best at modifying the original scripts as little as possible for clarity, and instead created a few new scripts to work as wrappers.\nAnd then, the frustration. I found that documentation that is easy to understand is highly lacking in the field (or I just didn’t manage to find it). Also, the documentation on fsl-functions is difficult to always follow.As an example, this is the best overview of fslmaths -help. And please notice, that to get help for fslmathsor flirt, type the command followed by -help. If you want the same from fnirt, then type -h or --help as is the case for most other command-line programs.\nI have tried to lower the bar to get started working on MRI registration. Feedback is very welcome on GitHub."
+    "text": "Motivation\nThe reason for creating this tool is to use 1mm MNI normalised (registration) lesion masks for the NeMo tool.\nMost of the hard working scripts in this pipeline are based on the work by Dr. Dianne Patterson, PhD, which in turn is also based on others work. I have tried my best at modifying the original scripts as little as possible for clarity, and instead created a few new scripts to work as wrappers.\nAnd then, the frustration. I found that documentation that is easy to understand is highly lacking in the field (or I just didn’t manage to find it). Also, the documentation on fsl-functions is difficult to always follow. As an example, this is the best overview of fslmaths -help. And please notice, that to get help for fslmathsor flirt, type the command followed by -help. If you want the same from fnirt, then type -h or --help as is the case for most other command-line programs.\nI have tried to lower the bar to get started working on MRI registration. Feedback is very welcome on GitHub."
   },
   {
     "objectID": "index.html#license",
     "href": "index.html#license",
     "title": "Normalisation pipeline",
     "section": "License",
-    "text": "License\nThis documentation is shared under the AGPL-v3 license if nothing else is explicitly stated. The source can be found here and contributions are very welcome in the discussion section on Github, through issues or pull requests.\n\nsource(\"glossary_setup.R\")"
+    "text": "License\nThis documentation is shared under the AGPL-v3 license if nothing else is explicitly stated. The source can be found here and contributions are very welcome in the discussion section on Github, through issues or pull requests."
+  },
+  {
+    "objectID": "index.html#glossary",
+    "href": "index.html#glossary",
+    "title": "Normalisation pipeline",
+    "section": "Glossary",
+    "text": "Glossary\n\n\n\n\n\nterm\ndefinition\n\n\n\n\nfsleyes\nThes picture viewing tool from the fsl-package. https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes\n\n\nMNI\nMontreal Neurological Institute. https://nist.mni.mcgill.ca/atlases/\n\n\nMRI\nMagnetic Resonance Imaging\n\n\nNeMo\nNetwork Modification tool. https://github.com/kjamison/nemo\n\n\npipeline\nA set of tools working together as chain links being dependent on one-another. Just a fancy term for \"ordered collection\"\n\n\nregistration\nI this context, registration denotes to art of registrering to normal space. In this case to the MNI space. Think of it as normalising data."
   },
   {
     "objectID": "01-content.html#glossary",
     "href": "01-content.html#glossary",
     "title": "1  Contents",
     "section": "1.1 Glossary",
-    "text": "1.1 Glossary\n\n\n\n\n\nterm\ndefinition\n\n\n\n\nANTs\nAdvanced Normalization Tools. [Source](https://github.com/ANTsX/ANTs)\n\n\nBash\nShort version: The language of the terminal console in Windows, Linux and MacOS.\n\n\nfsleyes\nThes picture viewing tool from the fsl-package. For more, [click here](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes).\n\n\nMNI\nMontreal Neurological Institute. [Source](https://nist.mni.mcgill.ca/atlases/)\n\n\nNeMo\nNetwork Modification tool. [Source](https://github.com/kjamison/nemo).\n\n\noptiBET\nA four step optimization of the fsl BET tool from [the Monti lab at UCLA](https://montilab.psych.ucla.edu/fmri-wiki/optibet/). [Read more](https://montilab.psych.ucla.edu/fmri-wiki/optibet/).\n\n\npipeline\nA set of tools working together as chain links being dependent on one-another. Just a fancy term for \"ordered collection\"\n\n\nPython\nA snake, or in this case refers to the free and open source programming language Python. [Source](https://www.python.org/)\n\n\nR\n\n\n\nregex\n\n\n\nregistration"
+    "text": "1.1 Glossary\n\n\n\n\n\nterm\ndefinition\n\n\n\n\nANTs\nAdvanced Normalization Tools. https://github.com/ANTsX/ANTs\n\n\nBash\nShort version: The language of the terminal console in Windows, Linux and MacOS.\n\n\nfsleyes\nThes picture viewing tool from the fsl-package. https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes\n\n\nMNI\nMontreal Neurological Institute. https://nist.mni.mcgill.ca/atlases/\n\n\nMRI\n\n\n\nNeMo\nNetwork Modification tool. https://github.com/kjamison/nemo\n\n\noptiBET\nA four step optimization of the fsl BET tool from the Monti lab at UCLA. https://montilab.psych.ucla.edu/fmri-wiki/optibet/\n\n\npipeline\nA set of tools working together as chain links being dependent on one-another. Just a fancy term for \"ordered collection\"\n\n\nPython\nA snake, or in this case refers to the free and open source programming language Python. https://www.python.org/\n\n\nR\n\n\n\nregex\n\n\n\nregistration"
   },
   {
     "objectID": "02-getting-started.html#sec-gettoit",
@@ -39,7 +46,7 @@
     "href": "02-getting-started.html#glossary",
     "title": "2  Getting started",
     "section": "2.2 Glossary",
-    "text": "2.2 Glossary\n\n\n\n\n\nterm\ndefinition\n\n\n\n\nANTs\nAdvanced Normalization Tools. [Source](https://github.com/ANTsX/ANTs)\n\n\nBIDS\nBrain Imaging Data Structure. [Source](https://bids-standard.github.io/bids-starter-kit/index.html)\n\n\nfsleyes\nThes picture viewing tool from the fsl-package. For more, [click here](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes).\n\n\nregistration\nI this context, registration denotes to art of registrering to normal space. In this case to the MNI space. Think of it as normalising data."
+    "text": "2.2 Glossary\n\n\n\n\n\nterm\ndefinition\n\n\n\n\nANTs\nAdvanced Normalization Tools. https://github.com/ANTsX/ANTs\n\n\nBIDS\nBrain Imaging Data Structure. https://bids-standard.github.io/bids-starter-kit/index.html\n\n\nfsleyes\nThes picture viewing tool from the fsl-package. https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes\n\n\nregistration\nI this context, registration denotes to art of registrering to normal space. In this case to the MNI space. Think of it as normalising data."
   },
   {
     "objectID": "03-qc.html#inspection",
@@ -74,14 +81,14 @@
     "href": "03-qc.html#glossary",
     "title": "3  Quality control",
     "section": "3.5 Glossary",
-    "text": "3.5 Glossary\n\nglossary_table()\n\n\n\n\nterm\ndefinition\n\n\n\n\nfsleyes\nThes picture viewing tool from the fsl-package. For more, [click here](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes).\n\n\nregex\nShort of Regular Expression. Provides a very powerful character search interface. There are various resources online for [learning](https://www.sitepoint.com/learn-regex/) and [validating](https://regex101.com/) your regex search pattern."
+    "text": "3.5 Glossary\n\n\n\n\n\nterm\ndefinition\n\n\n\n\nfsleyes\nThes picture viewing tool from the fsl-package. https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes\n\n\nregex\nShort of Regular Expression. Provides a very powerful character search interface. There are various resources online for [learning](https://www.sitepoint.com/learn-regex/) and [validating](https://regex101.com/) your regex search pattern."
   },
   {
     "objectID": "04-lesion-reg.html#glossary",
     "href": "04-lesion-reg.html#glossary",
     "title": "4  Preparations",
     "section": "4.1 Glossary",
-    "text": "4.1 Glossary\n\nglossary_table()\n\ndata frame with 0 columns and 0 rows"
+    "text": "4.1 Glossary\n\n\ndata frame with 0 columns and 0 rows"
   },
   {
     "objectID": "05-nemo-file-prep.html#package-and-upload",
@@ -95,14 +102,14 @@
     "href": "05-nemo-file-prep.html#glossary",
     "title": "5  Using the NeMo tool",
     "section": "5.2 Glossary",
-    "text": "5.2 Glossary\n\nglossary_table()\n\n\n\n\nterm\ndefinition\n\n\n\n\nconnectome\nTerm used to denote the collection of connections in the brain.\n\n\nNeMo\nNetwork Modification tool. [Source](https://github.com/kjamison/nemo)."
+    "text": "5.2 Glossary\n\n\n\n\n\nterm\ndefinition\n\n\n\n\nconnectome\nTerm used to denote the collection of connections in the brain.\n\n\nNeMo\nNetwork Modification tool. https://github.com/kjamison/nemo"
   },
   {
     "objectID": "06-nemo-data.html#visualisation",
     "href": "06-nemo-data.html#visualisation",
     "title": "6  ZIP to data set",
     "section": "6.1 Visualisation",
-    "text": "6.1 Visualisation\nWe also want those nice glass brains. These following R scripts are all simple wrappers for the scripts from the NeMo tool, which uses the nibabel Python package for plotting. All the examples below are created based on a small sample of two subjects and the Yeo17 atlas which is also shared in the NeMo tool source.\nFirst we do the simpel voxel based heatmap.\n\nsource(\"nemo/glass-brain.R\")\nglass_brain(\n  data.folder = source.folder,\n  file.pattern = \"chacovol_res2mm_mean.nii.gz\",\n  out.name = \"images/glass_chacovol.png\"\n)\n\n Next we can do the parcellation or atlas based chacovol plotting:\n\nsource(\"nemo/glass-brain.R\")\nglass_brain(\n  data.folder = source.folder,\n  file.pattern = \"chacovol_yeo17_mean.pkl\",\n  out.name = \"images/glass_chacovol_parc.png\",\n  parcellation = \"/Users/atlas/folder/Yeo2011_17Networks_MNI152_182x218x182_LiberalMask.nii.gz\"\n)\n\n\n\n\nAveraged parcellation based chacovol glassbrain plot\n\n\nThe same scirpt can also be used for lesion plotting:\n\nglass_brain(\n  data.folder = \"/Users/folder/with/lesions/\",\n  file.pattern = \"lesion.nii.gz\",\n  id.pattern = \"W(50|49)\", # This id.pattern is used to only include specified ids\n  out.name = \"images/glass_lesion.png\"\n)\n\n\n\n\nCombined lesion plot\n\n\nAnd finally the change in connections between areas in the brain can be visualised as a graphbrain:\n\nsource(\"nemo/graph-brain.R\")\ngraph_brain(\n  data.folder = source.folder,\n  file.pattern = \"chacoconn_yeo17_mean.pkl\",\n  out.name = \"images/glass_chacoconn.png\",\n  node.file=\"/Users/atlas/folder/Yeo2011_17Networks_MNI152_182x218x182_LiberalMask.nii.gz\"\n)\n\n\n\n\nGraph brain plot of lost connections between atlas based ROIs"
+    "text": "6.1 Visualisation\n\n\n\n\n\n\nPlease note that the NeMo-repository is shared without a license\n\n\n\nThis means it is technically not allowed to modify or redistribute the code. Please refer to {#contents}.\n\n\nWe also want those nice glass brains. These following R scripts are all simple wrappers for the scripts from the NeMo tool, which uses the nibabel Python package for plotting. All the examples below are created based on a small sample of two subjects and the Yeo17 atlas which is also shared in the NeMo tool source.\nFirst we do the simpel voxel based heatmap.\n\nsource(\"nemo/glass-brain.R\")\nglass_brain(\n  data.folder = source.folder,\n  file.pattern = \"chacovol_res2mm_mean.nii.gz\",\n  out.name = \"images/glass_chacovol.png\"\n)\n\n Next we can do the parcellation or atlas based chacovol plotting:\n\nsource(\"nemo/glass-brain.R\")\nglass_brain(\n  data.folder = source.folder,\n  file.pattern = \"chacovol_yeo17_mean.pkl\",\n  out.name = \"images/glass_chacovol_parc.png\",\n  parcellation = \"/Users/atlas/folder/Yeo2011_17Networks_MNI152_182x218x182_LiberalMask.nii.gz\"\n)\n\n\n\n\nAveraged parcellation based chacovol glassbrain plot\n\n\nThe same scirpt can also be used for lesion plotting:\n\nglass_brain(\n  data.folder = \"/Users/folder/with/lesions/\",\n  file.pattern = \"lesion.nii.gz\",\n  id.pattern = \"W(50|49)\", # This id.pattern is used to only include specified ids\n  out.name = \"images/glass_lesion.png\"\n)\n\n\n\n\nCombined lesion plot\n\n\nAnd finally the change in connections between areas in the brain can be visualised as a graphbrain:\n\nsource(\"nemo/graph-brain.R\")\ngraph_brain(\n  data.folder = source.folder,\n  file.pattern = \"chacoconn_yeo17_mean.pkl\",\n  out.name = \"images/glass_chacoconn.png\",\n  node.file=\"/Users/atlas/folder/Yeo2011_17Networks_MNI152_182x218x182_LiberalMask.nii.gz\"\n)\n\n\n\n\nGraph brain plot of lost connections between atlas based ROIs"
   },
   {
     "objectID": "06-nemo-data.html#glossary",
@@ -116,7 +123,7 @@
     "href": "NEWS.html#section",
     "title": "Appendix A — Changelog",
     "section": "A.1 2024.1.1",
-    "text": "A.1 2024.1.1\nChanged versioning scheme. As the NeMo-tool is published without a license, the package or parts of it cannot be redistributed, and should instead be downloaded directly from the NeMo repository. This pipeline-project is shared under the FOSS-license A-GPL-v3. This version will be the first released on Zenodo and have a DOI. DESCRIPTION file added with and renv initiated for easier cloning of the project."
+    "text": "A.1 2024.1.1\nChanged versioning scheme.\nAs the NeMo-tool is published without a license, the package or parts of it cannot be redistributed, and should instead be downloaded directly from the NeMo repository. This pipeline-project is shared under the FOSS-license A-GPL-v3.\nThis version will be the first released on Zenodo and have a DOI.\nDESCRIPTION file added for easier cloning of the project. Initialise renv with renv::init(bare=TRUE)."
   },
   {
     "objectID": "NEWS.html#section-1",
@@ -133,11 +140,11 @@
     "text": "A.3 2023.10.05\n\nA.3.1 Notes\nRestructuring of the initial book to better emphasize the more general usability of the pipeline. This will prevent renaming the repository and widen the usability. The pipeline was recently tweaked to run 1-level subfolders with or without lesion masks, and final registration space (1/2 mm) is specified on first run. The script are still a little primitive, in that they don’t have a ton of control steps built in, so please stick to documentation or start modifying yourself. I’ll be very happy to receive comments and PRs here on GitHub.\nA few other checks has been added to make the script working a little more robustly. It will give error if several lesion masks are detected. Append data+time as suffix to original files to avoid overwriting on script re-runs.\n\n\nA.3.2 Changes (non-extensive)\n\n00norm_pipeline.sh: everything should now have comments. Handles missing lesion masks more elegantly. Input with named flags and help section. Runs with defaults. ANTs registration option included. Renamed.\nfsl-norm-bbl.sh: now actually does registration of lesion masks, and binarises the lesion normalised lesion mask, if it is there.\nant_reg3.sh: script included to provide optional ANTs registration. See https://github.com/ANTsX/ANTs for installation instructions. If ANTs is installed in a virtual environment, everything should be run from within this."
   },
   {
-    "objectID": "session.html",
-    "href": "session.html",
+    "objectID": "session.html#libraries-used-in-the-project",
+    "href": "session.html#libraries-used-in-the-project",
     "title": "Appendix B — Session info",
-    "section": "",
-    "text": "sessionInfo()\n\nR version 4.3.1 (2023-06-16)\nPlatform: aarch64-apple-darwin20 (64-bit)\nRunning under: macOS Sonoma 14.1.2\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib \nLAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\ntime zone: Europe/Copenhagen\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  grDevices datasets  utils     methods   base     \n\nloaded via a namespace (and not attached):\n [1] compiler_4.3.1    fastmap_1.1.1     cli_3.6.2         htmltools_0.5.7  \n [5] tools_4.3.1       rstudioapi_0.15.0 rmarkdown_2.25    knitr_1.45       \n [9] jsonlite_1.8.8    xfun_0.41         digest_0.6.33     rlang_1.1.2      \n[13] renv_1.0.3        evaluate_0.23"
+    "section": "B.1 Libraries used in the project",
+    "text": "B.1 Libraries used in the project\nThese are the projects listed with renv::dependencies()\n\nrenv::dependencies()$Package |&gt; unique()\n\nFinding R package dependencies ... Done!\n\n\n[1] \"glossary\"  \"rmarkdown\" \"stRoke\"    \"zip\"       \"here\"      \"styler\"   \n[7] \"usethis\"   \"renv\""
   },
   {
     "objectID": "LICENSE.html#preamble",

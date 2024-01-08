@@ -227,7 +227,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#libraries-used-in-the-project" id="toc-libraries-used-in-the-project" class="nav-link active" data-scroll-target="#libraries-used-in-the-project"><span class="header-section-number">B.1</span> Libraries used in the project</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/agdamsbo/normalisation-pipeline/edit/main/session.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -300,14 +306,28 @@ attached base packages:
 [1] stats     graphics  grDevices datasets  utils     methods   base     
 
 loaded via a namespace (and not attached):
- [1] compiler_4.3.1    fastmap_1.1.1     cli_3.6.2         htmltools_0.5.7  
- [5] tools_4.3.1       rstudioapi_0.15.0 rmarkdown_2.25    knitr_1.45       
- [9] jsonlite_1.8.8    xfun_0.41         digest_0.6.33     rlang_1.1.2      
-[13] renv_1.0.3        evaluate_0.23    </code></pre>
+ [1] htmlwidgets_1.6.4 compiler_4.3.1    fastmap_1.1.1     cli_3.6.2        
+ [5] htmltools_0.5.7   tools_4.3.1       rstudioapi_0.15.0 yaml_2.3.8       
+ [9] rmarkdown_2.25    knitr_1.45        jsonlite_1.8.8    xfun_0.41        
+[13] digest_0.6.33     rlang_1.1.2       renv_1.0.3        evaluate_0.23    </code></pre>
+</div>
+</div>
+<section id="libraries-used-in-the-project" class="level2" data-number="B.1">
+<h2 data-number="B.1" class="anchored" data-anchor-id="libraries-used-in-the-project"><span class="header-section-number">B.1</span> Libraries used in the project</h2>
+<p>These are the projects listed with <code>renv::dependencies()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">dependencies</span>()<span class="sc">$</span>Package <span class="sc">|&gt;</span> <span class="fu">unique</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Finding R package dependencies ... Done!</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "glossary"  "rmarkdown" "stRoke"    "zip"       "here"      "styler"   
+[7] "usethis"   "renv"     </code></pre>
 </div>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -559,4 +579,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/agdamsbo/normalisation-pipeline/edit/main/session.qmd" class="toc-action">Edit this page</a></p></div></div></div></div></footer></body></html>
+</body></html>
