@@ -1,0 +1,20 @@
+{
+  "hash": "7a57ea386ebf4ea85d3f3ffb40dee225",
+  "result": {
+    "markdown": "# Preparations\n\n\n\n::: {.cell}\n\n:::\n\n\n\nFollowing the steps laid out in @sec-start, we got all lesions normalised to standard 1mm MNI space, and they are all located in the individual subject folders, som we just need a few steps to offload work to the NeMo-tool. This was the command used to perform fsl based registration to 1 mm MNI standard space:\n\n\n\n::: {.cell}\n\n```{.bash .cell-code}\nsh /codes/folder/00norm_pipeline.sh --do1mm\n```\n:::\n\n\n\n1.  Now you should be ready to package for the NeMo tool. The web interface has an upload limit of 10 lesion masks. Open and edit the source-folder in the `nemo-packing.R` script. It will collect all 1mm MNI lesion masks and package in zip-files of max 10 lesion masks each and put them in the provided folder. Save and then run the following:\n\n\n\n    ::: {.cell}\n    \n    ```{.bash .cell-code}\n    Rscript nemo-packing.R\n    ```\n    :::\n\n\n\nThen files were uploaded and sent to the [NeMo tool server]().\n\n## Glossary\n\n\n\n::: {.cell}\n::: {.cell-output .cell-output-stdout}\n```\ndata frame with 0 columns and 0 rows\n```\n:::\n:::\n",
+    "supporting": [
+      "04-lesion-reg_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}
